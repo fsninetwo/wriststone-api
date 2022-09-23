@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace EfCore.Entities.Entities
+namespace Wriststone.Data.Entities.Entities
 {
     public class Currency
     {

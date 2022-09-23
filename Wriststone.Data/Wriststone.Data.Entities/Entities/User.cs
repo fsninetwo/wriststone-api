@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfCore.Entities.Entities
+namespace Wriststone.Data.Entities.Entities
 {
     public class User
     {
