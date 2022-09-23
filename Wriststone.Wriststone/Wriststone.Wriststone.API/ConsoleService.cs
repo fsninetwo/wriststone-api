@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EfCore.Data.Models;
-using EfCore.Entities.Entities;
-using EfCore.Services.IServices;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Wriststone.Wriststone.Services.IServices;
 
-namespace EFCore.App
+namespace Wriststone.Wriststone.API
 {
     class ConsoleService : IHostedService
     {

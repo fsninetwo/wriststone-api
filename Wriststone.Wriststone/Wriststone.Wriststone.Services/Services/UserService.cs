@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using EfCore.Domain.Exceptions;
-using EfCore.Entities.Entities;
-using EfCore.Data.IRepositories;
-using EfCore.Data.Models;
-using EfCore.Services.Helpers;
-using EfCore.Services.IServices;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Services.Helpers;
+using Wriststone.Wriststone.Services.IServices;
 
-namespace EfCore.Services.Services
+namespace Wriststone.Wriststone.Services.Services
 {
     public class UserService : IUserService
     {
