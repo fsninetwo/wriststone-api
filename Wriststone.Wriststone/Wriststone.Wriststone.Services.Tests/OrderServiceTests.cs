@@ -1,19 +1,18 @@
-using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EfCore.Services.IServices;
-using Moq;
-using Xunit;
-using EFCore.App.Mappers;
-using EfCore.Data.IRepositories;
-using EfCore.Data.Models;
+using AutoMapper;
 using EfCore.Domain.Exceptions;
 using EfCore.Domain.Helpers;
-using EfCore.Services.Services;
-using EfCore.Entities.Entities;
+using EfCore.Services.IServices;
+using EFCore.App.Mappers;
+using Moq;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Services.Services;
+using Xunit;
 
-namespace EfCore.Services.Tests
+namespace Wriststone.Wriststone.Services.Tests
 {
     public class OrderServiceTests
     {

@@ -1,18 +1,15 @@
-using EfCore.Data.IRepositories;
-using EfCore.Entities.Entities;
-using EfCore.Migrations;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using EfCore.Data.Repositories;
-using EfCore.Domain.Exceptions;
-using MockQueryable.Moq;
+using Microsoft.EntityFrameworkCore;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Data.Migrations;
 using Xunit;
+using EfCore.Data.IRepositories;
 
-namespace EfCore.Data.Tests
+namespace Wriststone.Wriststone.Data.Tests
 {
     public class OrderRepositoryTests
     {
