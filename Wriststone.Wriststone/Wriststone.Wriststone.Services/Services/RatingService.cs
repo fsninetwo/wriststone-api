@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using EfCore.Domain.Exceptions;
-using EfCore.Entities.Entities;
-using EfCore.Data.IRepositories;
-using EfCore.Services.IServices;
-using EfCore.Data.Models;
 using AutoMapper;
-using EfCore.Services.Helpers;
+using EfCore.Domain.Exceptions;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Services.Helpers;
+using Wriststone.Wriststone.Services.IServices;
 
-namespace EfCore.Services.Services
+namespace Wriststone.Wriststone.Services.Services
 {
     public class RatingService : IRatingService
     {

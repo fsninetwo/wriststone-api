@@ -22,6 +22,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Wriststone.Data.Entities\Wriststone.Data.Entities.csproj" />
+    <ProjectReference Include="..\..\Wriststone.Data\Wriststone.Data.Entities\Wriststone.Data.Entities.csproj" />
+    <ProjectReference Include="..\..\Wriststone.Data\Wriststone.Data.Migrations\Wriststone.Data.Migrations.csproj" />
+    <ProjectReference Include="..\Wriststone.Wriststone.Data\Wriststone.Wriststone.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using EfCore.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Data.Migrations;
 using Xunit;
-using EfCore.Data.IRepositories;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Repositories;
 
 namespace Wriststone.Wriststone.Data.Tests
 {

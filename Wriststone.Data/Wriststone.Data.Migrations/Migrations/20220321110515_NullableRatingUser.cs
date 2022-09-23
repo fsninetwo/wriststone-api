@@ -1,4 +1,6 @@
-﻿namespace Wriststone.Data.Migrations.Migrations
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Wriststone.Data.Migrations.Migrations
 {
     public partial class NullableRatingUser : Migration
     {

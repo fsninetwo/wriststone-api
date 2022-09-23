@@ -1,11 +1,6 @@
-﻿using EfCore.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Wriststone.Data.Entities.Entities;
 
-namespace EfCore.Data.Models
+namespace Wriststone.Wriststone.Data.Models
 {
     public class UserUpdateDTO
     {

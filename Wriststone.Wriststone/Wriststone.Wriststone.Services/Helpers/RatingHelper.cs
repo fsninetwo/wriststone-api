@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EfCore.Data.Models;
-using EfCore.Entities.Entities;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Wriststone.Data.Models;
 
-namespace EfCore.Services.Helpers
+namespace Wriststone.Wriststone.Services.Helpers
 {
     public static class RatingHelper
     {

@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using EfCore.Data.IRepositories;
-using EfCore.Data.Repositories;
-using EfCore.Migrations.Configuration;
-using EfCore.Services.IServices;
-using EfCore.Services.Services;
 using EFCore.App.Mappers;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Wriststone.Data.Migrations;
+using Wriststone.Data.Migrations.Configuration;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Repositories;
+using Wriststone.Wriststone.Services.IServices;
+using Wriststone.Wriststone.Services.Services;
 
-namespace EFCore.App.Extensions
+namespace Wriststone.Wriststone.API.Extensions
 {
     static class ServiceExtensions
     {
@@ -31,6 +31,14 @@ namespace EFCore.App.Extensions
             services.AddScoped<IRatingService, RatingService>();
         }
 
+        public static void AddSwaggerService(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Wriststone.Wriststone.API", Version = "v1"});
+            });
+        }
+
         public static void AddAutoMapperService(this IServiceCollection services)
         {
             var autoMapper = new MapperConfiguration(mc =>
@@ -41,6 +49,19 @@ namespace EFCore.App.Extensions
             var mapper = autoMapper.CreateMapper();
 
             services.AddSingleton(mapper);
+        }
+
+        public static void AddDatabaseConfiguration(this IServiceCollection services, AppSettings appSettings)
+        {
+            services.AddDbContext<EfCoreDbContext>
+                (options => options.UseSqlServer(appSettings.ConnectionString, opts =>
+                {
+                    opts.CommandTimeout(int.MaxValue);
+                    opts.EnableRetryOnFailure(
+                        10,
+                        TimeSpan.FromSeconds(30),
+                        null);
+                }));
         }
     }
 }

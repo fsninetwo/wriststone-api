@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using EfCore.Data.IRepositories;
-using EfCore.Data.Models;
 using EfCore.Domain.Exceptions;
-using EfCore.Entities.Entities;
-using EfCore.Migrations;
 using Microsoft.EntityFrameworkCore;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Data.Migrations;
+using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
 
-namespace EfCore.Data.Repositories
+namespace Wriststone.Wriststone.Data.Repositories
 {
     public class RatingRepository : IRatingRepository
     {

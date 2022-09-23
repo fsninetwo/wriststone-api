@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EfCore.Entities.Entities;
 
-namespace EfCore.Data.Models
+namespace Wriststone.Wriststone.Data.Models
 {
     public class OrderUpdateDTO
     {

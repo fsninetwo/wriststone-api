@@ -1,12 +1,9 @@
-﻿using EfCore.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EfCore.Data.Models;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Wriststone.Data.Models;
 
-namespace EfCore.Data.IRepositories
+namespace Wriststone.Wriststone.Data.IRepositories
 {
     public interface IRatingRepository
     {

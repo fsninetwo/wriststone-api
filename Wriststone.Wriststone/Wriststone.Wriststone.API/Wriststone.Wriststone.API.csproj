@@ -4,4 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Wriststone.Data\Wriststone.Data.Migrations\Wriststone.Data.Migrations.csproj" />
+    <ProjectReference Include="..\Wriststone.Wriststone.Data\Wriststone.Wriststone.Data.csproj" />
+    <ProjectReference Include="..\Wriststone.Wriststone.Services\Wriststone.Wriststone.Services.csproj" />
+  </ItemGroup>
+
 </Project>
