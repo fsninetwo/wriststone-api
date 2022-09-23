@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wriststone.Gateway", "Wrist
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wriststone.GatewayService", "Wriststone.GatewayService\Wriststone.GatewayService.csproj", "{AD6D9D65-8EC1-4DE6-9980-2B123A958C85}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wriststone.Wriststone", "Wriststone.Wriststone", "{B3FD80C6-3468-417C-9041-C1F91CFFBB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wriststone.Wriststone.API", "Wriststone.Wriststone\Wriststone.Wriststone.API\Wriststone.Wriststone.API.csproj", "{6567EDB7-33ED-4BC1-85BE-4060DFA409DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{AD6D9D65-8EC1-4DE6-9980-2B123A958C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD6D9D65-8EC1-4DE6-9980-2B123A958C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD6D9D65-8EC1-4DE6-9980-2B123A958C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6567EDB7-33ED-4BC1-85BE-4060DFA409DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6567EDB7-33ED-4BC1-85BE-4060DFA409DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6567EDB7-33ED-4BC1-85BE-4060DFA409DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6567EDB7-33ED-4BC1-85BE-4060DFA409DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD6D9D65-8EC1-4DE6-9980-2B123A958C85} = {0C2AEF30-4E55-4B1D-AE0A-DBEADA52A23E}
+		{6567EDB7-33ED-4BC1-85BE-4060DFA409DB} = {B3FD80C6-3468-417C-9041-C1F91CFFBB9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB17E916-32F2-4582-967B-8B11F7E682DE}
