@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +63,16 @@ namespace Wriststone.Wriststone.API.Extensions
                         TimeSpan.FromSeconds(30),
                         null);
                 }));
+        }
+
+        public static void UseSwaggerService(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wriststone.Wriststone.API");
+                c.RoutePrefix = string.Empty;
+            });
         }
     }
 }

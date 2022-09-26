@@ -19,11 +19,13 @@ namespace Wriststone.Wriststone.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddLogging();
             services.AddSwaggerService();
             services.AddAutoMapperService();
             services.AddDatabaseConfiguration(Configuration);
             services.AddDependencyInjectionServices();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,9 +36,16 @@ namespace Wriststone.Wriststone.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+            app.UseHttpsRedirection();
+            app.UseSwaggerService();
+
             app.UseRouting();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
