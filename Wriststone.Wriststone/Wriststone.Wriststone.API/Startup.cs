@@ -15,17 +15,14 @@ namespace Wriststone.Wriststone.API
     {
         public static IConfigurationRoot Configuration { get; private set; }
 
-        private static readonly AppSettings AppSettings;
-
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EfCoreDbContext>
-                (options => options.UseSqlServer(AppSettings.ConnectionString));
             services.AddLogging();
             services.AddSwaggerService();
             services.AddAutoMapperService();
+            services.AddDatabaseConfiguration(Configuration);
             services.AddDependencyInjectionServices();
         }
 
@@ -39,13 +36,7 @@ namespace Wriststone.Wriststone.API
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

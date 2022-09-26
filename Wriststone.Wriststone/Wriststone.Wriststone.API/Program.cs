@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Wriststone.Data.Migrations.Configuration;
+using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 
 namespace Wriststone.Wriststone.API
 {
@@ -16,16 +17,14 @@ namespace Wriststone.Wriststone.API
     {
         public static IConfigurationRoot Configuration { get; private set; }
 
-        private static AppSettings appSettings;
-
         public static void Main(string[] args)
         {
-            appSettings = AppSettingsConfiguration.GetAppSettings(Directory.GetCurrentDirectory());
+            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true)
-                .AddJsonFile($"appsettings.local.json", optional: true)
+                .AddJsonFile($"appsettings.{envName}.json", optional: true)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -35,7 +34,7 @@ namespace Wriststone.Wriststone.API
 
             try
             {
-                Log.Information("Starting console host");
+                Log.Information("Starting web host");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
@@ -51,6 +50,7 @@ namespace Wriststone.Wriststone.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
-using EfCore.Data.Models;
-using EfCore.Entities.Entities;
+using Wriststone.Data.Entities.Entities;
+using Wriststone.Wriststone.Data.Models;
 
-namespace EFCore.App.Mappers
+namespace Wriststone.Wriststone.API.Mappers
 {
     public class AutoMappers: Profile
     {

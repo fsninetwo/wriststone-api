@@ -1,12 +1,12 @@
 ﻿using System;
 using AutoMapper;
-using EFCore.App.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
+using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Repositories;
 using Wriststone.Wriststone.Services.IServices;
@@ -51,10 +51,10 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddSingleton(mapper);
         }
 
-        public static void AddDatabaseConfiguration(this IServiceCollection services, AppSettings appSettings)
+        public static void AddDatabaseConfiguration(this IServiceCollection services, IConfigurationRoot configuration)
         {
             services.AddDbContext<EfCoreDbContext>
-                (options => options.UseSqlServer(appSettings.ConnectionString, opts =>
+                (options => options.UseSqlServer(configuration.GetSection("ConnectionString").Value, opts =>
                 {
                     opts.CommandTimeout(int.MaxValue);
                     opts.EnableRetryOnFailure(

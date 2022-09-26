@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using EfCore.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using MockQueryable.Moq;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Data.Migrations;
 using Xunit;

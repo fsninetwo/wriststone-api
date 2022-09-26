@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Wriststone.Data.Entities;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Wriststone.Data.Entities.Entities;
 

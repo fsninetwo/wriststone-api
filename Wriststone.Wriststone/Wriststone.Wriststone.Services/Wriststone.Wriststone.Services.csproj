@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Wriststone.Common\Wriststone.Common.Domain\Wriststone.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\Wriststone.Data\Wriststone.Data.Entities\Wriststone.Data.Entities.csproj" />
     <ProjectReference Include="..\Wriststone.Wriststone.Data\Wriststone.Wriststone.Data.csproj" />
   </ItemGroup>
 
