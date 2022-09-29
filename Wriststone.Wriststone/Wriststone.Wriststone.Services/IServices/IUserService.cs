@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Users;
 
 namespace Wriststone.Wriststone.Services.IServices
 {
@@ -9,6 +10,8 @@ namespace Wriststone.Wriststone.Services.IServices
 
         Task<UserDTO> GetUserAsync(long id);
 
-        Task<UserCredentialsResult> GetUserByCredentialsAsync(string login, string password);
+        Task<UserDTO> GetUserByCredentialsAsync(string login, string password);
+        
+        Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto);
     }
 }

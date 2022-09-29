@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Users;
 using Wriststone.Wriststone.Services.Helpers;
 using Wriststone.Wriststone.Services.IServices;
 
@@ -32,11 +34,11 @@ namespace Wriststone.Wriststone.Services.Services
             return userModel;
         }
 
-        public async Task<UserCredentialsResult> GetUserByCredentialsAsync(string login, string password)
+        public async Task<UserDTO> GetUserByCredentialsAsync(string login, string password)
         {
             var user = await _userRepository.GetUserByCredentialsAsync(login, password);
 
-            var userModel = _mapper.Map<UserCredentialsResult>(user);
+            var userModel = _mapper.Map<UserDTO>(user);
 
             _logger.LogDebug("User {0} credentials is selected", userModel.Login);
 
@@ -56,9 +58,12 @@ namespace Wriststone.Wriststone.Services.Services
             catch (Exception ex)
             {
                 _logger.LogError("Error," + ex.Message);
-
-                Console.WriteLine("Error, " + ex.Message);
             }
+        }
+
+        public async Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto)
+        {
+            var user = await GetUserByCredentialsAsync(userCredentialsDto.Login, userCredentialsDto.Password);
         }
     }
 }

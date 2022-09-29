@@ -22,6 +22,7 @@ namespace Wriststone.Wriststone.API
             services.AddControllers();
             services.AddLogging();
             services.AddSwaggerService();
+            services.AddJwtAuthentication(Configuration);
             services.AddAutoMapperService();
             services.AddDatabaseConfiguration(Configuration);
             services.AddDependencyInjectionServices();

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
@@ -37,7 +40,50 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Wriststone.Wriststone.API", Version = "v1"});
+
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentification",
+                    Description = "Enter JWT Bearer token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement(
+                {{ securityScheme, Array.Empty<string>() }});
             });
+        }
+
+        public static void AddJwtAuthentication(this IServiceCollection services, IConfigurationRoot configuration)
+        {
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("secret").Value);
+
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                    };
+                });
         }
 
         public static void AddAutoMapperService(this IServiceCollection services)

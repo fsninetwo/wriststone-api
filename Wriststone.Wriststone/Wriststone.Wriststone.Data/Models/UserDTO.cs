@@ -1,4 +1,5 @@
 ﻿using System;
+using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Wriststone.Data.Models
 {
@@ -9,6 +10,8 @@ namespace Wriststone.Wriststone.Data.Models
         public string Login { get; set; }
 
         public string Email { get; set; }
+
+        public UserGroup UserGroup { get; set; }
 
         public DateTime Created { get; set; }
     }
