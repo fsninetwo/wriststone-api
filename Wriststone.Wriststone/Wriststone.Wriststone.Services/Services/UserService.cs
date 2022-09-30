@@ -16,12 +16,14 @@ namespace Wriststone.Wriststone.Services.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<UserService> _logger;
+        private readonly JwtHelper _jwtService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
+        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger, JwtHelper jwtService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _logger = logger;
+            _jwtService = jwtService;
         }
 
         public async Task<UserDTO> GetUserAsync(long id)
@@ -37,6 +39,8 @@ namespace Wriststone.Wriststone.Services.Services
         public async Task<UserDTO> GetUserByCredentialsAsync(string login, string password)
         {
             var user = await _userRepository.GetUserByCredentialsAsync(login, password);
+
+            if (user is null) return null;
 
             var userModel = _mapper.Map<UserDTO>(user);
 
@@ -64,6 +68,23 @@ namespace Wriststone.Wriststone.Services.Services
         public async Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto)
         {
             var user = await GetUserByCredentialsAsync(userCredentialsDto.Login, userCredentialsDto.Password);
+
+            if (user is null)
+            {
+                return new UserAuthResponseDTO
+                {
+                    IsAuthSuccessfull = false,
+                    Token = null
+                };
+            }
+
+            var token = _jwtService.GenerateToken(user);
+
+            return new UserAuthResponseDTO
+            {
+                IsAuthSuccessfull = true,
+                Token = token
+            };
         }
     }
 }

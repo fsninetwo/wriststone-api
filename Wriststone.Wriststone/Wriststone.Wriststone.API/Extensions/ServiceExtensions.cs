@@ -13,6 +13,7 @@ using Wriststone.Data.Migrations.Configuration;
 using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Repositories;
+using Wriststone.Wriststone.Services.Helpers;
 using Wriststone.Wriststone.Services.IServices;
 using Wriststone.Wriststone.Services.Services;
 
@@ -33,6 +34,8 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRatingService, RatingService>();
+
+            services.AddSingleton<JwtHelper>();
         }
 
         public static void AddSwaggerService(this IServiceCollection services)
@@ -57,14 +60,15 @@ namespace Wriststone.Wriststone.API.Extensions
                 };
 
                 c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement(
-                {{ securityScheme, Array.Empty<string>() }});
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {{ securityScheme, Array.Empty<string>() }}
+                );
             });
         }
 
-        public static void AddJwtAuthentication(this IServiceCollection services, IConfigurationRoot configuration)
+        public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var key = Encoding.ASCII.GetBytes(configuration.GetSection("secret").Value);
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("SecretKey").Value);
 
             services.AddAuthentication(x =>
                 {
@@ -77,9 +81,8 @@ namespace Wriststone.Wriststone.API.Extensions
                     x.SaveToken = true;
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                     };
@@ -98,7 +101,7 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddSingleton(mapper);
         }
 
-        public static void AddDatabaseConfiguration(this IServiceCollection services, IConfigurationRoot configuration)
+        public static void AddDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<EfCoreDbContext>
                 (options => options.UseSqlServer(configuration.GetSection("ConnectionString").Value, opts =>

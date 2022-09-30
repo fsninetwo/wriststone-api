@@ -11,7 +11,7 @@ namespace Wriststone.Wriststone.API.Controllers
 {
     
 
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
