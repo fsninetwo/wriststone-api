@@ -114,6 +114,15 @@ namespace Wriststone.Wriststone.API.Extensions
                 }));
         }
 
+        public static void AddCorsService(this IServiceCollection services)
+        {
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+        }
+
         public static void UseSwaggerService(this IApplicationBuilder app)
         {
             app.UseSwagger();

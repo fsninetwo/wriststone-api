@@ -10,10 +10,10 @@
         }
       ],
       "UpstreamPathTemplate": "/wriststone/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Patch" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl":  "https://localhost:44300" 
-  } 
+    "BaseUrl": "https://localhost:44300"
+  }
 }

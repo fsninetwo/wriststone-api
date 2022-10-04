@@ -31,7 +31,7 @@ namespace Wriststone.Wriststone.API
             services.AddAutoMapperService();
             services.AddDatabaseConfiguration(Configuration);
             services.AddDependencyInjectionServices();
-
+            services.AddCorsService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +42,7 @@ namespace Wriststone.Wriststone.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseSwaggerService();
 

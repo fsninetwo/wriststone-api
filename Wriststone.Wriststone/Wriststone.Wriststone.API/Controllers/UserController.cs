@@ -9,8 +9,6 @@ using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
-    
-
     [Route("[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase

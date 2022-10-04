@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -55,9 +56,10 @@ namespace Wriststone.GatewayService
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger/json", "My Api Gateway");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api Gateway");
                 c.RoutePrefix = string.Empty;
             });
+
 
             app.UseOcelot().Wait();
 
