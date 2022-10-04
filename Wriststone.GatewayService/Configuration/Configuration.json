@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/wriststone/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   ],
   "GlobalConfiguration": {
