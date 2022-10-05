@@ -8,7 +8,9 @@ namespace Wriststone.Wriststone.Data.Models.Users
 {
     public class UserAuthResponseDTO
     {
-        public bool IsAuthSuccessfull { get; set; }
+        public bool IsAuthSuccessful { get; set; }
+
+        public string ErrorMessage { get; set; }
 
         public string Token { get; set; }
     }

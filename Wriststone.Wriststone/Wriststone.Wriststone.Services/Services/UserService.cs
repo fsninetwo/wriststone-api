@@ -73,7 +73,8 @@ namespace Wriststone.Wriststone.Services.Services
             {
                 return new UserAuthResponseDTO
                 {
-                    IsAuthSuccessfull = false,
+                    IsAuthSuccessful = false,
+                    ErrorMessage = "Login or password is invalid.",
                     Token = null
                 };
             }
@@ -82,7 +83,7 @@ namespace Wriststone.Wriststone.Services.Services
 
             return new UserAuthResponseDTO
             {
-                IsAuthSuccessfull = true,
+                IsAuthSuccessful = true,
                 Token = token
             };
         }

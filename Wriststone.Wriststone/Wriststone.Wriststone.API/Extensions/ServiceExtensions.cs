@@ -117,9 +117,11 @@ namespace Wriststone.Wriststone.API.Extensions
         public static void AddCorsService(this IServiceCollection services)
         {
             services.AddCors(options => {
-                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod()
+                options.AddPolicy("CorsPolicy", 
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials());
+                );
             });
         }
 
