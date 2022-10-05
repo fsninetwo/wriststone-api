@@ -1,9 +1,14 @@
 ﻿using System;
 
-namespace EfCore.Domain.Exceptions
+namespace Wriststone.Common.Domain.Exceptions
 {
     public class InternalException : Exception
     {
+        public InternalException(string message, string developersError, Exception innerException): base(message, innerException)
+        {
+
+        }
+
         public InternalException(string message, Exception innerException): base(message, innerException)
         {
 
@@ -18,5 +23,7 @@ namespace EfCore.Domain.Exceptions
         {
 
         }
+
+        public string DevelopersError { get; set; }
     }
 }

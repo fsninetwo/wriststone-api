@@ -39,7 +39,6 @@ namespace Wriststone.Wriststone.API
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 Log.Fatal(ex, "Host terminated unexpectedly");
             }
             finally

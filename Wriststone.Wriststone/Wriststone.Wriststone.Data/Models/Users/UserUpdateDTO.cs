@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Wriststone.Data.Entities.Entities;
 
-namespace Wriststone.Data.Entities.Entities
+namespace Wriststone.Wriststone.Data.Models.Users
 {
-    public class User
+    public class UserUpdateDTO
     {
-        public long Id { get; set; }
-
         public string Login { get; set; }
 
         public string Password { get; set; }
@@ -18,9 +20,5 @@ namespace Wriststone.Data.Entities.Entities
         public DateTime Created { get; set; }
 
         public UserGroup UserGroup { get; set; }
-
-        public virtual List<Rating> Ratings { get; set; }
-
-        public virtual List<Order> Orders { get; set; }
     }
 }

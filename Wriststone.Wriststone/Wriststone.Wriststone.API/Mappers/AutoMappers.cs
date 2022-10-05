@@ -2,6 +2,7 @@
 using AutoMapper;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Users;
 
 namespace Wriststone.Wriststone.API.Mappers
 {
@@ -17,8 +18,9 @@ namespace Wriststone.Wriststone.API.Mappers
 
             CreateMap<OrderDetails, OrderDetailsDTO>();
             CreateMap<Rating, RatingDTO>();
+            CreateMap<UserCreateDTO, UserDTO>().ReverseMap();
             CreateMap<User, UserDTO>();
-            CreateMap<User, UserCredentialsResult>();
+            CreateMap<User, UserCredentialsDTO>();
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 
                 opt => opt.MapFrom(
                     src => src.Ratings

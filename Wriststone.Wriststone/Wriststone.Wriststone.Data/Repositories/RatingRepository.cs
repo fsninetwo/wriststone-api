@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EfCore.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Data.Migrations;
 using Wriststone.Wriststone.Data.IRepositories;

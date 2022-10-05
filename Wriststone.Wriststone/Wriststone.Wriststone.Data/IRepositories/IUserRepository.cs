@@ -5,9 +5,9 @@ namespace Wriststone.Wriststone.Data.IRepositories
 {
     public interface IUserRepository
     {
-        Task AddUser(User newUser);
+        Task AddUser(User user);
 
-        Task UpdateUser(User updatedUser);
+        Task UpdateUser(User user);
 
         Task<User> GetUserAsync(long userId, bool asNoTracking = true);
 

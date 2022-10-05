@@ -3,14 +3,17 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
 using Wriststone.Wriststone.API.Mappers;
+using Wriststone.Wriststone.API.Middlewares;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Repositories;
 using Wriststone.Wriststone.Services.Helpers;
@@ -133,6 +136,15 @@ namespace Wriststone.Wriststone.API.Extensions
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wriststone.Wriststone.API");
                 c.RoutePrefix = string.Empty;
             });
+        }
+
+        public static void UseExceptionHandler(this IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseMiddleware<ErrorHandlingMiddleware>();
         }
     }
 }

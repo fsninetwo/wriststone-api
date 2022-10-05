@@ -9,9 +9,9 @@ namespace Wriststone.Wriststone.Services.IServices
         Task UpdateUserAsync(UserUpdateDTO updateUser);
 
         Task<UserDTO> GetUserAsync(long id);
-
-        Task<UserDTO> GetUserByCredentialsAsync(string login, string password);
         
         Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto);
+
+        Task Register(UserCreateDTO userCreateDto);
     }
 }

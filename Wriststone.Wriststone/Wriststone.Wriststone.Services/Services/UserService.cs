@@ -26,6 +26,35 @@ namespace Wriststone.Wriststone.Services.Services
             _jwtService = jwtService;
         }
 
+        public async Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto)
+        {
+            var user = await GetUserByCredentialsAsync(userCredentialsDto.Login, userCredentialsDto.Password);
+
+            if (user is null)
+            {
+                return new UserAuthResponseDTO
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = "Login or password is invalid.",
+                    Token = null
+                };
+            }
+
+            var token = _jwtService.GenerateToken(user);
+
+            return new UserAuthResponseDTO
+            {
+                IsAuthSuccessful = true,
+                Token = token
+            };
+        }
+
+        public async Task Register(UserCreateDTO userCreateDto)
+        {
+            var user = _mapper.Map<User>(userCreateDto);
+            await _userRepository.AddUser(user);
+        }
+
         public async Task<UserDTO> GetUserAsync(long id)
         {
             var user = await _userRepository.GetUserAsync(id);
@@ -53,7 +82,7 @@ namespace Wriststone.Wriststone.Services.Services
         {
             try
             {
-                var mapUser = UserHelper.ConvertUserDTOtoUser(updateUser);
+                var mapUser = _mapper.Map<User>(updateUser);
 
                 await _userRepository.UpdateUser(mapUser);
 
@@ -63,29 +92,6 @@ namespace Wriststone.Wriststone.Services.Services
             {
                 _logger.LogError("Error," + ex.Message);
             }
-        }
-
-        public async Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto)
-        {
-            var user = await GetUserByCredentialsAsync(userCredentialsDto.Login, userCredentialsDto.Password);
-
-            if (user is null)
-            {
-                return new UserAuthResponseDTO
-                {
-                    IsAuthSuccessful = false,
-                    ErrorMessage = "Login or password is invalid.",
-                    Token = null
-                };
-            }
-
-            var token = _jwtService.GenerateToken(user);
-
-            return new UserAuthResponseDTO
-            {
-                IsAuthSuccessful = true,
-                Token = token
-            };
         }
     }
 }

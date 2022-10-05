@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using EfCore.Domain.Exceptions;
+using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.Helpers;

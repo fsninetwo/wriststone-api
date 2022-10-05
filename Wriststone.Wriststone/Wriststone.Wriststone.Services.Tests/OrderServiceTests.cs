@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using EfCore.Domain.Exceptions;
 using EfCore.Domain.Helpers;
 using Moq;
+using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.Data.IRepositories;

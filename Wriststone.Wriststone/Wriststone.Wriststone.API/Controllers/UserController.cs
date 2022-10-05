@@ -27,5 +27,13 @@ namespace Wriststone.Wriststone.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserCreateDTO userCreateDto)
+        {
+            await _userService.Register(userCreateDto);
+
+            return Ok();
+        }
     }
 }
