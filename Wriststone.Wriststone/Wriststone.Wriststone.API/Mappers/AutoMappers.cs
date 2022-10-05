@@ -18,7 +18,7 @@ namespace Wriststone.Wriststone.API.Mappers
 
             CreateMap<OrderDetails, OrderDetailsDTO>();
             CreateMap<Rating, RatingDTO>();
-            CreateMap<UserCreateDTO, UserDTO>().ReverseMap();
+            CreateMap<UserCreateDTO, User>().ReverseMap();
             CreateMap<User, UserDTO>();
             CreateMap<User, UserCredentialsDTO>();
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 
