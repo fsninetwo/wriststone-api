@@ -35,5 +35,14 @@ namespace Wriststone.Wriststone.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetUser(long id)
+        {
+            var user = await _userService.GetUserAsync(id);
+
+            return Ok(user);
+        }
     }
 }
