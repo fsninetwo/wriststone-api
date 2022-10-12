@@ -17,14 +17,12 @@ namespace Wriststone.Wriststone.Services.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<UserService> _logger;
-        private readonly JwtHelper _jwtService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger, JwtHelper jwtService)
+        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _logger = logger;
-            _jwtService = jwtService;
         }
 
         public async Task<UserDTO> GetUserAsync(long id)

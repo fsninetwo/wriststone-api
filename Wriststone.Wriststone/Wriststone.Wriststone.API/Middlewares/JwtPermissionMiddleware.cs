@@ -35,7 +35,7 @@ namespace Wriststone.Wriststone.API.Middlewares
                 var request = context.Request;
                 var authorizationToken = request.Headers["Authorization"].FirstOrDefault();
 
-                if (authorizationToken is null || authorizationToken.StartsWith("Bearer"))
+                if (authorizationToken is null || !authorizationToken.StartsWith("Bearer"))
                 {
                     throw new InternalException("Token is empty or not permitted");
                 }
