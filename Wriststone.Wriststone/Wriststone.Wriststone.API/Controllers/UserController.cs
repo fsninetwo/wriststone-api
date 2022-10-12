@@ -10,33 +10,13 @@ using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
-    [Route("[controller]/[action]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
 
         public UserController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        [HttpPost]
-        [DisableTokenValidation]
-        public async Task<IActionResult> Authorize([FromBody] UserCredentialsDTO userCredentialsDTO)
-        {
-            var result = await _userService.Authorize(userCredentialsDTO);
-
-            return Ok(result);
-        }
-
-        [HttpPost]
-        [DisableTokenValidation]
-        public async Task<IActionResult> Register([FromBody] UserCreateDTO userCreateDto)
-        {
-            await _userService.Register(userCreateDto);
-
-            return Ok();
         }
 
         [HttpGet]

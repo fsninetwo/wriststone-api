@@ -27,35 +27,6 @@ namespace Wriststone.Wriststone.Services.Services
             _jwtService = jwtService;
         }
 
-        public async Task<UserAuthResponseDTO> Authorize(UserCredentialsDTO userCredentialsDto)
-        {
-            var user = await GetUserByCredentialsAsync(userCredentialsDto.Login, userCredentialsDto.Password);
-
-            if (user is null)
-            {
-                return new UserAuthResponseDTO
-                {
-                    IsAuthSuccessful = false,
-                    ErrorMessage = "Login or password is invalid.",
-                    Token = null
-                };
-            }
-
-            var token = _jwtService.GenerateToken(user);
-
-            return new UserAuthResponseDTO
-            {
-                IsAuthSuccessful = true,
-                Token = token
-            };
-        }
-
-        public async Task Register(UserCreateDTO userCreateDto)
-        {
-            var user = _mapper.Map<User>(userCreateDto);
-            await _userRepository.AddUser(user);
-        }
-
         public async Task<UserDTO> GetUserAsync(long id)
         {
             var user = await _userRepository.GetUserAsync(id);
@@ -64,6 +35,13 @@ namespace Wriststone.Wriststone.Services.Services
             _logger.LogDebug("User {0} is selected", userModel.Login);
 
             return userModel;
+        }
+
+        public async Task AddUser(UserCreateDTO userCreateDto)
+        {
+            var user = _mapper.Map<User>(userCreateDto);
+
+            await _userRepository.AddUser(user);
         }
 
         public async Task<UserDTO> GetUserByCredentialsAsync(string login, string password)

@@ -38,6 +38,7 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRatingService, RatingService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddSingleton<ITokenService, TokenService>();
 
