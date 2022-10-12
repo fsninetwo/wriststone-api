@@ -11,16 +11,10 @@ namespace Wriststone.Wriststone.Data.Models.Users
     {
         public long Id { get; set; }
 
-        public string Login { get; set; }
+        public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public string Email { get; set; }
-
         public string FullName { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public UserGroup UserGroup { get; set; }
     }
 }

@@ -48,6 +48,9 @@ namespace Wriststone.Wriststone.API
             app.UseHttpsRedirection();
             app.UseSwaggerService();
             app.UseRouting();
+
+            app.UseJwtAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
@@ -78,15 +79,22 @@ namespace Wriststone.Wriststone.Services.Services
             return userModel;
         }
 
-        public async Task UpdateUserAsync(UserUpdateDTO updateUser)
+        public async Task UpdateUserAsync(UserUpdateDTO updatedUser)
         {
             try
             {
-                var mapUser = _mapper.Map<User>(updateUser);
+                var user = await _userRepository.GetUserAsync(updatedUser.Id);
 
-                await _userRepository.UpdateUser(mapUser);
+                if (user is null)
+                {
+                    throw new InternalException("User is not found");
+                }
 
-                _logger.LogDebug("New user is added");
+                var mergedUser = UserHelper.MergeUpdatedData(updatedUser, user);
+
+                await _userRepository.UpdateUser(mergedUser);
+
+                _logger.LogDebug("Current user is updated");
             }
             catch (Exception ex)
             {

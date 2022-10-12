@@ -56,13 +56,6 @@ namespace Wriststone.Wriststone.Data.Repositories
 
         public async Task UpdateUser(User updatedUser)
         {
-            var user = await GetUserAsync(updatedUser.Id);
-
-            if (user is null)
-            {
-                throw new InternalException("User is not found");
-            }
-
             _userDbSet.Update(updatedUser);
 
             await _dbContext.SaveChangesAsync();

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
+using Wriststone.Wriststone.API.Helpers;
 using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.API.Middlewares;
 using Wriststone.Wriststone.Data.IRepositories;
@@ -37,6 +38,8 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRatingService, RatingService>();
+
+            services.AddSingleton<ITokenService, TokenService>();
 
             services.AddSingleton<JwtHelper>();
         }
@@ -145,6 +148,14 @@ namespace Wriststone.Wriststone.API.Extensions
                 app.UseDeveloperExceptionPage();
             }
             app.UseMiddleware<ErrorHandlingMiddleware>();
+        }
+
+        public static void UseJwtAuthorization(this IApplicationBuilder app)
+        {
+            //app.UseWhen(context => TokenVerificationHelper.ShouldApplyTokenVerification(context),
+            //    applicationBuilder => { app.UseMiddleware<JwtPermissionMiddleware>(); });
+
+            app.UseMiddleware<JwtPermissionMiddleware>();
         }
     }
 }
