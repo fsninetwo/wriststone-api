@@ -30,6 +30,7 @@ namespace Wriststone.Wriststone.API
             services.AddJwtAuthentication(Configuration);
             services.AddAutoMapperService();
             services.AddDatabaseConfiguration(Configuration);
+            services.AddHttpContextAccessor();
             services.AddDependencyInjectionServices();
             services.AddCorsService();
         }

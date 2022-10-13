@@ -14,7 +14,8 @@ namespace Wriststone.Wriststone.API.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, 
+            IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
         {
             _userService = userService;
         }

@@ -14,7 +14,7 @@ namespace Wriststone.Wriststone.API.Controllers
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService): base()
         {
             _authService = authService;
         }

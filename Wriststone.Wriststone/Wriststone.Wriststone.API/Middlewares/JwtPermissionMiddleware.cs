@@ -37,7 +37,7 @@ namespace Wriststone.Wriststone.API.Middlewares
 
                 if (authorizationToken is null || !authorizationToken.StartsWith("Bearer"))
                 {
-                    throw new InternalException("Token is empty or not permitted");
+                    throw new UnauthorizedException("Token is empty or not permitted");
                 }
             }
 
