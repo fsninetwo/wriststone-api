@@ -2,7 +2,7 @@
 {
     public enum UserGroup
     {
-        Administrator,
+        Administrator = 1,
         Moderator,
         User
     }

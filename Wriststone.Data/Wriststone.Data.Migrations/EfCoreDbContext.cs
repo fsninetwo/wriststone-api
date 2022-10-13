@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Wriststone.Data.Entities.Entities;
 
@@ -25,6 +26,8 @@ namespace Wriststone.Data.Migrations
         public DbSet<Rating> Ratings { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<PermissionMapping> PermissionMappings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
