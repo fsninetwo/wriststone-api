@@ -51,6 +51,7 @@ namespace Wriststone.Wriststone.API
             app.UseRouting();
 
             app.UseJwtAuthorization();
+            app.UsePermissions();
 
             app.UseEndpoints(endpoints =>
             {

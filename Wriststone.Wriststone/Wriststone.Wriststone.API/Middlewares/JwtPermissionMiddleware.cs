@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -30,14 +26,13 @@ namespace Wriststone.Wriststone.API.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            if (TokenVerificationHelper.ShouldApplyTokenVerification(context))
+            if (VerificationHelper.ShouldApplyTokenVerification(context))
             {
-                var request = context.Request;
-                var authorizationToken = request.Headers["Authorization"].FirstOrDefault();
+                var authorizationToken = _tokenService.TokenString;
 
-                if (authorizationToken is null || !authorizationToken.StartsWith("Bearer"))
+                if (authorizationToken is null)
                 {
-                    throw new UnauthorizedException("Token is empty or not permitted");
+                    throw new UnauthorizedException("Token is empty or invalid");
                 }
             }
 

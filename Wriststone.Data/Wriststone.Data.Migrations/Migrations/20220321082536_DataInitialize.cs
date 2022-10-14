@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Wriststone.Common.Domain.Enums;
 using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Data.Migrations.Migrations

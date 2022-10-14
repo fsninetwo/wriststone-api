@@ -5,7 +5,7 @@ using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Data.Migrations.Migrations
 {
-    public partial class AddPermissions : Migration
+    public partial class AddNewPermissions : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,9 +18,15 @@ namespace Wriststone.Data.Migrations.Migrations
                 new PermissionMapping
                 {
                     Permission = Permission.Users,
-                    UserGroup = UserGroup.Administrator,
-                    AccessLevel = AccessLevel.Write
+                    UserGroup = UserGroup.User,
+                    AccessLevel = AccessLevel.NoAccess
                 },
+                new PermissionMapping
+                {
+                    Permission = Permission.Users,
+                    UserGroup = UserGroup.Moderator,
+                    AccessLevel = AccessLevel.NoAccess
+                }
             };
             context.AddRange(permissionMappings);
             context.SaveChanges();

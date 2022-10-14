@@ -1,4 +1,4 @@
-﻿namespace Wriststone.Data.Entities.Entities
+﻿namespace Wriststone.Common.Domain.Enums
 {
     public enum UserGroup
     {

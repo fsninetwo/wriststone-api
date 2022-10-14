@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Wriststone.Common.Domain.Enums;
 
 namespace Wriststone.Data.Entities.Entities
 {

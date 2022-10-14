@@ -33,12 +33,14 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IPermissionsRepository, PermissionsRepository>();
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPermissionsService, PermissionsService>();
 
             services.AddSingleton<ITokenService, TokenService>();
 
@@ -151,11 +153,13 @@ namespace Wriststone.Wriststone.API.Extensions
             app.UseMiddleware<ErrorHandlingMiddleware>();
         }
 
+        public static void UsePermissions(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<PermissionMiddleware>();
+        }
+
         public static void UseJwtAuthorization(this IApplicationBuilder app)
         {
-            //app.UseWhen(context => TokenVerificationHelper.ShouldApplyTokenVerification(context),
-            //    applicationBuilder => { app.UseMiddleware<JwtPermissionMiddleware>(); });
-
             app.UseMiddleware<JwtPermissionMiddleware>();
         }
     }
