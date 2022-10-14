@@ -42,7 +42,7 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPermissionsService, PermissionsService>();
 
-            services.AddSingleton<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddSingleton<JwtHelper>();
         }

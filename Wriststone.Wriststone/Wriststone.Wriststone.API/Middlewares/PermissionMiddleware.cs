@@ -24,26 +24,22 @@ namespace Wriststone.Wriststone.API.Middlewares
 
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
-        private readonly ITokenService _tokenService;
-        private readonly IPermissionsService _permissionsService;
 
         public PermissionMiddleware(
-            RequestDelegate next, IConfiguration configuration, ITokenService tokenService, 
-            IPermissionsService permissionsService, ILogger<JwtPermissionMiddleware> logger)
+            RequestDelegate next, IConfiguration configuration, ILogger<JwtPermissionMiddleware> logger)
         {
             _next = next;
             _configuration = configuration;
-            _tokenService = tokenService;
-            _permissionsService = permissionsService;
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ITokenService tokenService, 
+            IPermissionsService permissionsService)
         {
             var attribute = VerificationHelper.GetRequirePageAccess(context);
             if (attribute != null)
             {
-                var authorizationToken = _tokenService.TokenString;
+                var authorizationToken = tokenService.TokenString;
 
                 if (authorizationToken is null)
                 {
@@ -53,7 +49,7 @@ namespace Wriststone.Wriststone.API.Middlewares
                 var permission = attribute.Permission;
                 var accessLevel = attribute.AccessLevel ?? GetAccessLevelFromRequest(context);
 
-                var hasAccess = await _permissionsService.HasPermissionAsync(permission, accessLevel);
+                var hasAccess = await permissionsService.HasPermissionAsync(permission, accessLevel);
 
                 if (!hasAccess)
                 {

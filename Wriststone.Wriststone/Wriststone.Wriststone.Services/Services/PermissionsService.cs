@@ -22,12 +22,12 @@ namespace Wriststone.Wriststone.Services.Services
 
         private readonly Dictionary<AccessLevel, string> _accessLevelMap = new Dictionary<AccessLevel, string>
         {
-            {  AccessLevel.Read, "Read" },
+            { AccessLevel.Read, "Read" },
             { AccessLevel.Write, "Write" },
             { AccessLevel.NoAccess, "No Access" }
         };
 
-        PermissionsService(ITokenService tokenService, IPermissionsRepository permissionsRepository)
+        public PermissionsService(ITokenService tokenService, IPermissionsRepository permissionsRepository)
         {
             _tokenService = tokenService;
             _permissionsRepository = permissionsRepository;
