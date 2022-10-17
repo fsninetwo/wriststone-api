@@ -46,8 +46,8 @@ namespace Wriststone.Wriststone.API.Middlewares
                     throw new UnauthorizedException("Token is empty or invalid");
                 }
 
-                var permission = attribute.Permission;
-                var accessLevel = attribute.AccessLevel ?? GetAccessLevelFromRequest(context);
+                var permission = attribute.PermissionEnum;
+                var accessLevel = attribute.AccessLevelEnum ?? GetAccessLevelFromRequest(context);
 
                 var hasAccess = await permissionsService.HasPermissionAsync(permission, accessLevel);
 
@@ -60,13 +60,13 @@ namespace Wriststone.Wriststone.API.Middlewares
             await _next(context);
         }
 
-        private AccessLevel GetAccessLevelFromRequest(HttpContext context)
+        private AccessLevelEnum GetAccessLevelFromRequest(HttpContext context)
         {
             var method = context.Request.Method;
 
             return _writeMethods.Contains(method)
-                ? AccessLevel.Write
-                : AccessLevel.Read;
+                ? AccessLevelEnum.Write
+                : AccessLevelEnum.Read;
         }
     }
 }

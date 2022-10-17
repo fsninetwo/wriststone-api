@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Wriststone.Common.Domain.Enums;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.Services.Services
@@ -15,16 +16,16 @@ namespace Wriststone.Wriststone.Services.Services
         private readonly ITokenService _tokenService;
         private readonly IPermissionsRepository _permissionsRepository;
 
-        private readonly Dictionary<Permission, string> _permissionMap = new Dictionary<Permission, string>
+        private readonly Dictionary<PermissionEnum, string> _permissionMap = new Dictionary<PermissionEnum, string>
         {
-            { Permission.Users, "Users" }
+            { PermissionEnum.UserManagement, "User Management" }
         };
 
-        private readonly Dictionary<AccessLevel, string> _accessLevelMap = new Dictionary<AccessLevel, string>
+        private readonly Dictionary<AccessLevelEnum, string> _accessLevelMap = new Dictionary<AccessLevelEnum, string>
         {
-            { AccessLevel.Read, "Read" },
-            { AccessLevel.Write, "Write" },
-            { AccessLevel.NoAccess, "No Access" }
+            { AccessLevelEnum.Read, "Read" },
+            { AccessLevelEnum.Write, "Write" },
+            { AccessLevelEnum.NoAccess, "No Access" }
         };
 
         public PermissionsService(ITokenService tokenService, IPermissionsRepository permissionsRepository)
@@ -33,30 +34,28 @@ namespace Wriststone.Wriststone.Services.Services
             _permissionsRepository = permissionsRepository;
         }
 
-        public async Task<bool> HasPermissionAsync(Permission permission, AccessLevel accessLevel)
+        public async Task<IList<PermissionDTO>> GetPermissions(string userRole)
         {
-            var permissionString = _permissionMap[permission];
-            var accessLevelString = _accessLevelMap[accessLevel];
+            var permissionMappings = await _permissionsRepository.GetPermissionsAsync(userRole);
+
+            return null;
+        }
+
+        public async Task<bool> HasPermissionAsync(PermissionEnum permissionEnum, AccessLevelEnum accessLevelEnum)
+        {
+            var permissionString = _permissionMap[permissionEnum];
+            var accessLevelString = _accessLevelMap[accessLevelEnum];
 
             return await HasRolePermissionAsync(permissionString, accessLevelString);
         }
 
         private async Task<bool> HasRolePermissionAsync(string permissionString, string accessLevelString)
         {
-            var role = _tokenService.GetUserGroup();
+            var roleString = _tokenService.GetUserGroup();
 
-            var permission = (Permission)Enum.Parse(typeof(Permission), permissionString);
+            var permissions = await _permissionsRepository.GetPermissionsAsync(roleString, permissionString, accessLevelString);
 
-            var accessLevel = (AccessLevel)Enum.Parse(typeof(AccessLevel), permissionString);
-
-            var permissions = await _permissionsRepository.GetPermissionMappingsAsync(role, permission, accessLevel);
-
-            if (!permissions.Any())
-            {
-                return false;
-            }
-
-            return true;
+            return permissions.Any();
         }
     }
 }

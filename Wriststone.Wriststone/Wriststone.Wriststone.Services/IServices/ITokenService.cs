@@ -14,6 +14,6 @@ namespace Wriststone.Wriststone.Services.IServices
 
         string TokenString { get; }
 
-        UserGroup GetUserGroup();
+        string GetUserGroup();
     }
 }

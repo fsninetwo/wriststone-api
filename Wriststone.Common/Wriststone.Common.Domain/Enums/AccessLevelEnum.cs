@@ -1,8 +1,8 @@
 ﻿namespace Wriststone.Common.Domain.Enums
 {
-    public enum AccessLevel
+    public enum AccessLevelEnum
     {
-        Read,
+        Read = 1,
         Write,
         NoAccess
     }

@@ -10,7 +10,9 @@ namespace Wriststone.Wriststone.Data.IRepositories
 {
     public interface IPermissionsRepository
     {
-        Task<IReadOnlyList<PermissionMapping>> GetPermissionMappingsAsync(
-            UserGroup userGroup, Permission permission, AccessLevel accessLevel);
+        Task<IList<PermissionMapping>> GetPermissionsAsync(string userRole);
+
+        Task<IList<PermissionMapping>> GetPermissionsAsync(
+            string userRoleEnum, string permissionEnum, string accessLevelEnum);   
     }
 }

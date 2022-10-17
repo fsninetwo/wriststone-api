@@ -12,7 +12,7 @@ namespace Wriststone.Wriststone.Data.Models
 
         public string Email { get; set; }
 
-        public UserGroup UserGroup { get; set; }
+        public UserRoleEnum UserRoleEnum { get; set; }
 
         public DateTime Created { get; set; }
     }

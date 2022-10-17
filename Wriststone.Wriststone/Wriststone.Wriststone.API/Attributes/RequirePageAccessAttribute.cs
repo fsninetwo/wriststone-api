@@ -10,19 +10,19 @@ namespace Wriststone.Wriststone.API.Attributes
     [AttributeUsage((AttributeTargets.Class | AttributeTargets.Method))]
     public class RequirePageAccessAttribute : Attribute
     {
-        public AccessLevel? AccessLevel { get; set; }
+        public AccessLevelEnum? AccessLevelEnum { get; set; }
 
-        public Permission Permission { get; }
+        public PermissionEnum PermissionEnum { get; }
 
-        public RequirePageAccessAttribute(Permission permission, AccessLevel accessLevel)
+        public RequirePageAccessAttribute(PermissionEnum permissionEnum, AccessLevelEnum accessLevelEnum)
         {
-            Permission = permission;
-            AccessLevel = accessLevel;
+            PermissionEnum = permissionEnum;
+            AccessLevelEnum = accessLevelEnum;
         }
 
-        public RequirePageAccessAttribute(Permission permission)
+        public RequirePageAccessAttribute(PermissionEnum permissionEnum)
         {
-            Permission = permission;
+            PermissionEnum = permissionEnum;
         }
         
     }

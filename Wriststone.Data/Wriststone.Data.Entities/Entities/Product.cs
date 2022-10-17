@@ -12,9 +12,9 @@ namespace Wriststone.Data.Entities.Entities
 
         public string Developer { get; set; }
 
-        public virtual List<Rating> Ratings { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
 
-        public virtual List<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
 
     }
 }

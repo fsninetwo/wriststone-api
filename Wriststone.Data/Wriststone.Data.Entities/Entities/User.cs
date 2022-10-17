@@ -18,10 +18,10 @@ namespace Wriststone.Data.Entities.Entities
 
         public DateTime Created { get; set; }
 
-        public UserGroup UserGroup { get; set; }
+        public UserRole UserRole { get; set; }
 
-        public virtual List<Rating> Ratings { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
 
-        public virtual List<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

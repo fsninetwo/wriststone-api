@@ -22,26 +22,44 @@ namespace Wriststone.Wriststone.Data.Repositories
             _permissionMappingsDbSet = dbContext.Set<PermissionMapping>();
         }
 
-        public async Task<IReadOnlyList<PermissionMapping>> GetPermissionMappingsAsync(
-            UserGroup userGroup, Permission permission, AccessLevel accessLevel)
+        public async Task<IList<PermissionMapping>> GetPermissionsAsync(string userRole)
         {
             var permissionMappings = 
-                await GetPermissionMappings(userGroup, permission, accessLevel).ToListAsync();
+                await GetPermissionMappings(userRole).ToListAsync();
+
+            return null;
+        }
+
+        public async Task<IList<PermissionMapping>> GetPermissionsAsync(
+            string userRole, string permission, string accessLevel)
+        {
+            var permissionMappings = 
+                await GetPermissionMappings(userRole, permission, accessLevel).ToListAsync();
 
             return permissionMappings;
         }
 
         private IQueryable<PermissionMapping> GetPermissionMappings(
-            UserGroup userGroup, Permission permission, AccessLevel accessLevel, bool asNoTracking = false)
+            string userRole, string permission, string accessLevel, bool asNoTracking = false)
         {
-            var permissionMappings = _permissionMappingsDbSet
-                .Where(x => x.UserGroup == userGroup 
-                         && x.Permission == permission 
-                         && x.AccessLevel == accessLevel)
+            var permissionMappings = GetPermissionMappings(userRole)
+                .Include(x => x.AccessLevel)
+                .Include(x => x.Permission)
+                .Where(x => x.AccessLevel.Name == accessLevel)
+                .Where(x => x.Permission.Name == permission)
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
 
             return permissionMappings;
         }
 
+        private IQueryable<PermissionMapping> GetPermissionMappings(string userRole, bool asNoTracking = false)
+        {
+            var permissionMappings = _permissionMappingsDbSet
+                .Include(x => x.UserRole)
+                .Where(x => x.UserRole.Name == userRole)
+                .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
+
+            return permissionMappings;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Wriststone.Wriststone.Services.Services
             }
         }
 
-        public UserGroup GetUserGroup()
+        public string GetUserGroup()
         {
             var decodedToken = ParseToken(TokenString);
 
@@ -42,7 +42,7 @@ namespace Wriststone.Wriststone.Services.Services
                 throw new InternalException("Unable to get role");
             }
 
-            return (UserGroup)Enum.Parse(typeof(UserGroup), value.ToString());
+            return value.ToString();
         }
 
         private static JwtSecurityToken ParseToken(string token)
@@ -54,7 +54,7 @@ namespace Wriststone.Wriststone.Services.Services
             }
             catch
             {
-                throw new InternalException("Failed to parse security token");
+                throw new UnauthorizedException("Failed to parse security token");
             }
         }
     }
