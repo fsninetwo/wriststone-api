@@ -20,6 +20,6 @@ namespace Wriststone.Wriststone.Data.Models.Users
 
         public DateTime Created { get; set; }
 
-        public UserRoleEnum UserRoleEnum { get; set; }
+        public string UserRole { get; set; }
     }
 }

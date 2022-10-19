@@ -19,9 +19,9 @@ namespace Wriststone.Wriststone.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPermissions()
+        public async Task<IActionResult> GetDefaultPermissionsAsync()
         {
-            var permissions = _permissionsService.GetPermissions();
+            var permissions = await _permissionsService.GetDefaultPermissions();
 
             return Ok(permissions);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Wriststone.Data.Entities.Entities
 {
@@ -12,8 +13,10 @@ namespace Wriststone.Data.Entities.Entities
 
         public string Name { get; set; }
 
-        public ICollection<User> User { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<User> User { get; set; }
 
-        public ICollection<PermissionMapping> PermissionMapping { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<PermissionMapping> PermissionMapping { get; set; }
     }
 }

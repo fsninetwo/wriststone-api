@@ -62,7 +62,7 @@ namespace Wriststone.Data.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PermissionMapping",
+                name: "PermissionMappings",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -73,25 +73,25 @@ namespace Wriststone.Data.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PermissionMapping", x => x.Id);
+                    table.PrimaryKey("PK_PermissionMappings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PermissionMapping_AccessLevels_AccessLevelId",
+                        name: "FK_PermissionMappings_AccessLevels_AccessLevelId",
                         column: x => x.AccessLevelId,
                         principalTable: "AccessLevels",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PermissionMapping_Permissions_PermissionId",
+                        name: "FK_PermissionMappings_Permissions_PermissionId",
                         column: x => x.PermissionId,
                         principalTable: "Permissions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PermissionMapping_UserRoles_UserRoleId",
+                        name: "FK_PermissionMappings_UserRoles_UserRoleId",
                         column: x => x.UserRoleId,
                         principalTable: "UserRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,12 +100,12 @@ namespace Wriststone.Data.Migrations.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserRoleId = table.Column<long>(type: "bigint", nullable: true)
+                    UserRoleId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +115,7 @@ namespace Wriststone.Data.Migrations.Migrations
                         column: x => x.UserRoleId,
                         principalTable: "UserRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,18 +213,18 @@ namespace Wriststone.Data.Migrations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PermissionMapping_AccessLevelId",
-                table: "PermissionMapping",
+                name: "IX_PermissionMappings_AccessLevelId",
+                table: "PermissionMappings",
                 column: "AccessLevelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PermissionMapping_PermissionId",
-                table: "PermissionMapping",
+                name: "IX_PermissionMappings_PermissionId",
+                table: "PermissionMappings",
                 column: "PermissionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PermissionMapping_UserRoleId",
-                table: "PermissionMapping",
+                name: "IX_PermissionMappings_UserRoleId",
+                table: "PermissionMappings",
                 column: "UserRoleId");
 
             migrationBuilder.CreateIndex(
@@ -249,7 +249,7 @@ namespace Wriststone.Data.Migrations.Migrations
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
-                name: "PermissionMapping");
+                name: "PermissionMappings");
 
             migrationBuilder.DropTable(
                 name: "Ratings");

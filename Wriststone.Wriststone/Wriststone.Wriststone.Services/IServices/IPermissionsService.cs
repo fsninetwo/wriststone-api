@@ -13,6 +13,6 @@ namespace Wriststone.Wriststone.Services.IServices
     {
         Task<bool> HasPermissionAsync(PermissionEnum permissionEnum, AccessLevelEnum accessLevelEnum);
 
-        Task<IList<PermissionDTO>> GetPermissions(string userRoleEnum = nameof(UserRoleEnum.User));
+        Task<IList<PermissionDTO>> GetDefaultPermissions();
     }
 }

@@ -48,7 +48,7 @@ namespace Wriststone.Wriststone.Services.Helpers
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, nameof(user.UserRoleEnum)),
+                new Claim(ClaimTypes.Role, user.UserRole),
             };
             return claims;
         }

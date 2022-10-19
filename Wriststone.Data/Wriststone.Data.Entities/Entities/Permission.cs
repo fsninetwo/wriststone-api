@@ -12,6 +12,6 @@ namespace Wriststone.Data.Entities.Entities
 
         public string Name { get; set; }
 
-        public ICollection<PermissionMapping> PermissionMapping { get; set; }
+        public virtual ICollection<PermissionMapping> PermissionMapping { get; set; }
     }
 }

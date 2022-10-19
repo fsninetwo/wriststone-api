@@ -8,6 +8,7 @@ using Wriststone.Common.Domain.Enums;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Data.Migrations;
 using Wriststone.Wriststone.Data.IRepositories;
+using Wriststone.Wriststone.Data.Models;
 
 namespace Wriststone.Wriststone.Data.Repositories
 {
@@ -22,32 +23,42 @@ namespace Wriststone.Wriststone.Data.Repositories
             _permissionMappingsDbSet = dbContext.Set<PermissionMapping>();
         }
 
-        public async Task<IList<PermissionMapping>> GetPermissionsAsync(string userRole)
+        public async Task<IList<PermissionDTO>> GetPermissionsByUserRoleAsync(
+            string userRole = nameof(UserRoleEnum.User), bool asNoTracking = true)
         {
             var permissionMappings = 
-                await GetPermissionMappings(userRole).ToListAsync();
-
-            return null;
-        }
-
-        public async Task<IList<PermissionMapping>> GetPermissionsAsync(
-            string userRole, string permission, string accessLevel)
-        {
-            var permissionMappings = 
-                await GetPermissionMappings(userRole, permission, accessLevel).ToListAsync();
+                await GetPermissionMappings(userRole, asNoTracking)
+                    .Select(x => new PermissionDTO
+                    {
+                        Permission = x.AccessLevel.Name,
+                        AccessLevel = x.Permission.Name
+                    }).ToListAsync();
 
             return permissionMappings;
+        }
+
+        public async Task<IList<PermissionDTO>> GetPermissionsAsync(
+            string userRole, string permission, string accessLevel, bool asNoTracking = true)
+        {
+            var permissionMappings = 
+                await GetPermissionMappings(userRole, permission, accessLevel)
+                    .Select(x => new PermissionDTO
+                    {
+                        Permission = x.AccessLevel.Name,
+                        AccessLevel = x.Permission.Name
+                    }).ToListAsync();
+            
+            return permissionMappings;
+
+            throw new Exception();
         }
 
         private IQueryable<PermissionMapping> GetPermissionMappings(
             string userRole, string permission, string accessLevel, bool asNoTracking = false)
         {
             var permissionMappings = GetPermissionMappings(userRole)
-                .Include(x => x.AccessLevel)
-                .Include(x => x.Permission)
                 .Where(x => x.AccessLevel.Name == accessLevel)
-                .Where(x => x.Permission.Name == permission)
-                .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
+                .Where(x => x.Permission.Name == permission);   
 
             return permissionMappings;
         }
@@ -56,6 +67,8 @@ namespace Wriststone.Wriststone.Data.Repositories
         {
             var permissionMappings = _permissionMappingsDbSet
                 .Include(x => x.UserRole)
+                .Include(x => x.AccessLevel)
+                .Include(x => x.Permission)
                 .Where(x => x.UserRole.Name == userRole)
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
 

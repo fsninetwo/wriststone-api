@@ -10,8 +10,8 @@ using Wriststone.Data.Migrations;
 namespace Wriststone.Data.Migrations.Migrations
 {
     [DbContext(typeof(EfCoreDbContext))]
-    [Migration("20221017061940_AddInitialData")]
-    partial class AddInitialData
+    [Migration("20221018091524_AddPermissionsAndUsers")]
+    partial class AddPermissionsAndUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,13 +109,13 @@ namespace Wriststone.Data.Migrations.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AccessLevelId")
+                    b.Property<long>("AccessLevelId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("PermissionId")
+                    b.Property<long>("PermissionId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("UserRoleId")
+                    b.Property<long>("UserRoleId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -126,7 +126,7 @@ namespace Wriststone.Data.Migrations.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("PermissionMapping");
+                    b.ToTable("PermissionMappings");
                 });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Product", b =>
@@ -206,7 +206,7 @@ namespace Wriststone.Data.Migrations.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("UserRoleId")
+                    b.Property<long>("UserRoleId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -259,15 +259,21 @@ namespace Wriststone.Data.Migrations.Migrations
                 {
                     b.HasOne("Wriststone.Data.Entities.Entities.AccessLevel", "AccessLevel")
                         .WithMany("PermissionMapping")
-                        .HasForeignKey("AccessLevelId");
+                        .HasForeignKey("AccessLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Wriststone.Data.Entities.Entities.Permission", "Permission")
                         .WithMany("PermissionMapping")
-                        .HasForeignKey("PermissionId");
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Wriststone.Data.Entities.Entities.UserRole", "UserRole")
                         .WithMany("PermissionMapping")
-                        .HasForeignKey("UserRoleId");
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AccessLevel");
 
@@ -293,7 +299,9 @@ namespace Wriststone.Data.Migrations.Migrations
                 {
                     b.HasOne("Wriststone.Data.Entities.Entities.UserRole", "UserRole")
                         .WithMany("User")
-                        .HasForeignKey("UserRoleId");
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("UserRole");
                 });

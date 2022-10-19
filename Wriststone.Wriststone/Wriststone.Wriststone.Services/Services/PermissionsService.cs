@@ -34,11 +34,11 @@ namespace Wriststone.Wriststone.Services.Services
             _permissionsRepository = permissionsRepository;
         }
 
-        public async Task<IList<PermissionDTO>> GetPermissions(string userRole)
+        public async Task<IList<PermissionDTO>> GetDefaultPermissions()
         {
-            var permissionMappings = await _permissionsRepository.GetPermissionsAsync(userRole);
+            var permissionMappings = await _permissionsRepository.GetPermissionsByUserRoleAsync();
 
-            return null;
+            return permissionMappings;
         }
 
         public async Task<bool> HasPermissionAsync(PermissionEnum permissionEnum, AccessLevelEnum accessLevelEnum)

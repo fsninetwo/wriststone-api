@@ -12,10 +12,16 @@ namespace Wriststone.Data.Entities.Entities
     {
         public long Id { get; set; }
 
-        public UserRole UserRole { get; set; }
+        public long UserRoleId { get; set; }
 
-        public Permission Permission { get; set; }
+        public long PermissionId { get; set; }
 
-        public AccessLevel AccessLevel { get; set; }
+        public long AccessLevelId { get; set; }
+
+        public virtual UserRole UserRole { get; set; }
+
+        public virtual Permission Permission { get; set; }
+
+        public virtual AccessLevel AccessLevel { get; set; }
     }
 }

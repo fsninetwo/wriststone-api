@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
+using Wriststone.Common.Domain.Enums;
+using Wriststone.Common.Domain.Helpers;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Data.Models.Users;
@@ -18,9 +21,15 @@ namespace Wriststone.Wriststone.API.Mappers
 
             CreateMap<OrderDetails, OrderDetailsDTO>();
             CreateMap<Rating, RatingDTO>();
-            CreateMap<UserCreateDTO, User>().ReverseMap();
-            CreateMap<User, UserDTO>();
+
+            CreateMap<UserCreateDTO, User>()
+                .ForMember(x => x.UserRole, opt => opt.Ignore())
+                .ForMember(d => d.UserRoleId, 
+                op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToLong(s.UserRole)));
+            CreateMap<User, UserDTO>().ForMember(d => d.UserRole, 
+                op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
             CreateMap<User, UserCredentialsDTO>();
+
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 
                 opt => opt.MapFrom(
                     src => src.Ratings

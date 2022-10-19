@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Wriststone.Common.Domain.Enums;
 using Wriststone.Data.Entities.Entities;
+using Wriststone.Wriststone.Data.Models;
 
 namespace Wriststone.Wriststone.Data.IRepositories
 {
     public interface IPermissionsRepository
     {
-        Task<IList<PermissionMapping>> GetPermissionsAsync(string userRole);
+        Task<IList<PermissionDTO>> GetPermissionsByUserRoleAsync(
+            string userRole = nameof(UserRoleEnum.User), bool asNoTracking = true);
 
-        Task<IList<PermissionMapping>> GetPermissionsAsync(
-            string userRoleEnum, string permissionEnum, string accessLevelEnum);   
+        Task<IList<PermissionDTO>> GetPermissionsAsync(
+            string userRoleEnum, string permissionEnum, string accessLevelEnum, bool asNoTracking = true);   
     }
 }

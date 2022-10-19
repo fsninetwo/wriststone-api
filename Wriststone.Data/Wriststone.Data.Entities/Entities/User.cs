@@ -18,6 +18,8 @@ namespace Wriststone.Data.Entities.Entities
 
         public DateTime Created { get; set; }
 
+        public long UserRoleId { get; set; }
+
         public UserRole UserRole { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }

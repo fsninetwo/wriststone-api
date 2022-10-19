@@ -27,9 +27,11 @@ namespace Wriststone.Data.Migrations
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<PermissionMapping> PermissionMappings { get; set; }
+
         public DbSet<Permission> Permissions { get; set; }
 
-        public DbSet<AccessLevel> AccessLevels{ get; set; }
+        public DbSet<AccessLevel> AccessLevels { get; set; }
 
         public DbSet<UserRole> UserRoles { get; set; }
 
