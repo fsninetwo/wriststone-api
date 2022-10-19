@@ -12,7 +12,7 @@ namespace Wriststone.Wriststone.Data.IRepositories
     public interface IPermissionsRepository
     {
         Task<IList<PermissionDTO>> GetPermissionsByUserRoleAsync(
-            string userRole = nameof(UserRoleEnum.User), bool asNoTracking = true);
+            string userRole, bool asNoTracking = true);
 
         Task<IList<PermissionDTO>> GetPermissionsAsync(
             string userRoleEnum, string permissionEnum, string accessLevelEnum, bool asNoTracking = true);   

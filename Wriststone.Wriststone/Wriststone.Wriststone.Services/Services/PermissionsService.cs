@@ -36,7 +36,16 @@ namespace Wriststone.Wriststone.Services.Services
 
         public async Task<IList<PermissionDTO>> GetDefaultPermissions()
         {
-            var permissionMappings = await _permissionsRepository.GetPermissionsByUserRoleAsync();
+            var permissionMappings = await _permissionsRepository.GetPermissionsByUserRoleAsync(nameof(UserRoleEnum.User));
+
+            return permissionMappings;
+        }
+
+        public async Task<IList<PermissionDTO>> GetPermissions()
+        {
+            var roleString = _tokenService.GetUserGroup();
+
+            var permissionMappings = await _permissionsRepository.GetPermissionsByUserRoleAsync(roleString);
 
             return permissionMappings;
         }

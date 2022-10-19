@@ -24,7 +24,7 @@ namespace Wriststone.Wriststone.Data.Repositories
         }
 
         public async Task<IList<PermissionDTO>> GetPermissionsByUserRoleAsync(
-            string userRole = nameof(UserRoleEnum.User), bool asNoTracking = true)
+            string userRole, bool asNoTracking = true)
         {
             var permissionMappings = 
                 await GetPermissionMappings(userRole, asNoTracking)
