@@ -20,17 +20,17 @@ namespace Wriststone.Wriststone.API.Controllers
 
         [HttpGet]
         [DisableTokenValidation]
-        public async Task<IActionResult> GetDefaultPermissionsAsync()
+        public async Task<IActionResult> GetDefaultPermissions()
         {
-            var permissions = await _permissionsService.GetDefaultPermissions();
+            var permissions = await _permissionsService.GetDefaultPermissionsAsync();
 
             return Ok(permissions);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPermissionsAsync()
+        public async Task<IActionResult> GetPermissions()
         {
-            var permissions = await _permissionsService.GetPermissions();
+            var permissions = await _permissionsService.GetPermissionsAsync();
 
             return Ok(permissions);
         }

@@ -30,8 +30,8 @@ namespace Wriststone.Wriststone.Data.Repositories
                 await GetPermissionMappings(userRole, asNoTracking)
                     .Select(x => new PermissionDTO
                     {
-                        Permission = x.AccessLevel.Name,
-                        AccessLevel = x.Permission.Name
+                        Permission = x.Permission.Name,
+                        AccessLevel = x.AccessLevel.Name
                     }).ToListAsync();
 
             return permissionMappings;
@@ -44,13 +44,11 @@ namespace Wriststone.Wriststone.Data.Repositories
                 await GetPermissionMappings(userRole, permission, accessLevel)
                     .Select(x => new PermissionDTO
                     {
-                        Permission = x.AccessLevel.Name,
-                        AccessLevel = x.Permission.Name
+                        Permission = x.Permission.Name,
+                        AccessLevel = x.AccessLevel.Name
                     }).ToListAsync();
             
             return permissionMappings;
-
-            throw new Exception();
         }
 
         private IQueryable<PermissionMapping> GetPermissionMappings(
