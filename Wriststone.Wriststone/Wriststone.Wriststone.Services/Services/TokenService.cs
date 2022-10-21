@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Wriststone.Common.Domain.Enums;
 using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Services.IServices;
@@ -13,9 +15,25 @@ namespace Wriststone.Wriststone.Services.Services
 {
     public class TokenService : ITokenService
     {
-        public UserGroup GetUserGroup(string token)
+        public string TokenRaw { get; set; }
+
+        public string TokenString { get; }
+
+        public TokenService(IHttpContextAccessor httpContextAccessor)
         {
-            var decodedToken = ParseToken(token);
+            var authorizationHandler = httpContextAccessor.HttpContext.Request.Headers["Authorization"];
+
+            if (authorizationHandler.Count > 0)
+            {
+                TokenRaw = authorizationHandler.ToString();
+                TokenString = authorizationHandler.ToString()
+                    .Replace("Bearer ", string.Empty, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        public string GetUserGroup()
+        {
+            var decodedToken = ParseToken(TokenString);
 
             var (key, value) = decodedToken.Payload.FirstOrDefault(x => x.Key.Equals(ClaimTypes.Role));
 
@@ -24,7 +42,7 @@ namespace Wriststone.Wriststone.Services.Services
                 throw new InternalException("Unable to get role");
             }
 
-            return (UserGroup)Enum.Parse(typeof(UserGroup), value.ToString());
+            return value.ToString();
         }
 
         private static JwtSecurityToken ParseToken(string token)
@@ -36,7 +54,7 @@ namespace Wriststone.Wriststone.Services.Services
             }
             catch
             {
-                throw new InternalException("Failed to parse security token");
+                throw new UnauthorizedException("Failed to parse security token");
             }
         }
     }

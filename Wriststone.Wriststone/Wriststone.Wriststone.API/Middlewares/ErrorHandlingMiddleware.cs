@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Refit;
 using Wriststone.Common.Domain.Exceptions;
 
 namespace Wriststone.Wriststone.API.Middlewares
@@ -35,6 +32,12 @@ namespace Wriststone.Wriststone.API.Middlewares
                 _logger.LogError(ex.Message);
                 await HandleExceptionAsync(context, ex, _configuration, HttpStatusCode.BadRequest);
             }
+            catch (UnauthorizedException ex)
+            {
+                _logger.LogError(ex.Message);
+                var httpException = new HttpException(ex.Message, ex, HttpStatusCode.Forbidden);
+                await HandleExceptionAsync(context, httpException, _configuration, HttpStatusCode.BadRequest);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
@@ -48,7 +51,7 @@ namespace Wriststone.Wriststone.API.Middlewares
         {
             var includeStackTraceResponse = configuration.GetValue<bool>("Logging:IncludeStackTraceResponse");
 
-            if (context.Response.HasStarted)
+            if (!context.Response.HasStarted)
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)httpCode;

@@ -10,6 +10,6 @@ namespace Wriststone.Data.Entities.Entities
 
         public string Symbol { get; set; }
 
-        public virtual List<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

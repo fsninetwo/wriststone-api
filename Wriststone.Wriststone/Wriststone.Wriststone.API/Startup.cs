@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace Wriststone.Wriststone.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddControllers();
             services.AddLogging();
             services.AddSwaggerService();
@@ -50,6 +52,7 @@ namespace Wriststone.Wriststone.API
             app.UseRouting();
 
             app.UseJwtAuthorization();
+            app.UsePermissions();
 
             app.UseEndpoints(endpoints =>
             {

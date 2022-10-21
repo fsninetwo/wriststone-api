@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -17,27 +13,24 @@ namespace Wriststone.Wriststone.API.Middlewares
         private readonly RequestDelegate _next;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
-        private readonly ITokenService _tokenService;
 
         public JwtPermissionMiddleware(
-            RequestDelegate next, IConfiguration configuration, ITokenService tokenService, ILogger<JwtPermissionMiddleware> logger)
+            RequestDelegate next, IConfiguration configuration, ILogger<JwtPermissionMiddleware> logger)
         {
             _next = next;
             _configuration = configuration;
-            _tokenService = tokenService;
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ITokenService tokenService)
         {
-            if (TokenVerificationHelper.ShouldApplyTokenVerification(context))
+            if (VerificationHelper.ShouldApplyTokenVerification(context))
             {
-                var request = context.Request;
-                var authorizationToken = request.Headers["Authorization"].FirstOrDefault();
+                var authorizationToken = tokenService.TokenString;
 
-                if (authorizationToken is null || !authorizationToken.StartsWith("Bearer"))
+                if (authorizationToken is null)
                 {
-                    throw new InternalException("Token is empty or not permitted");
+                    throw new UnauthorizedException("Token is empty or invalid");
                 }
             }
 

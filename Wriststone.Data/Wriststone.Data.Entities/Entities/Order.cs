@@ -17,6 +17,6 @@ namespace Wriststone.Data.Entities.Entities
 
         public long UserId { get; set; }
 
-        public virtual List<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Wriststone.Wriststone.Services.Helpers
         {
             var tokenOptions = new JwtSecurityToken(
                 claims: GetClaims(user),
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: GetSigningCredentials());
 
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -41,14 +41,14 @@ namespace Wriststone.Wriststone.Services.Helpers
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        private List<Claim> GetClaims(UserDTO user)
+        private IEnumerable<Claim> GetClaims(UserDTO user)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.UserGroup.ToString()),
+                new Claim(ClaimTypes.Role, user.UserRole),
             };
             return claims;
         }

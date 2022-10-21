@@ -7,7 +7,7 @@ using Wriststone.Wriststone.API.Attributes;
 
 namespace Wriststone.Wriststone.API.Helpers
 {
-    public static class TokenVerificationHelper
+    public static class VerificationHelper
     {
         public static bool ShouldApplyTokenVerification(HttpContext context)
         {
@@ -15,6 +15,14 @@ namespace Wriststone.Wriststone.API.Helpers
             var attribute = endpoint?.Metadata.GetMetadata<DisableTokenValidationAttribute>();
 
             return attribute == null;
+        }
+
+        internal static RequirePageAccessAttribute GetRequirePageAccess(HttpContext context)
+        {
+            var endpoint = context.GetEndpoint();
+            var attribute = endpoint?.Metadata.GetMetadata<RequirePageAccessAttribute>();
+
+            return attribute;
         }
     }
 }

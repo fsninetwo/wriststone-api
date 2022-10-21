@@ -10,8 +10,8 @@ using Wriststone.Data.Migrations;
 namespace Wriststone.Data.Migrations.Migrations
 {
     [DbContext(typeof(EfCoreDbContext))]
-    [Migration("20221005113802_AddNullableFullname")]
-    partial class AddNullableFullname
+    [Migration("20221018082042_InitializeTables")]
+    partial class InitializeTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace Wriststone.Data.Migrations.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.AccessLevel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccessLevels");
+                });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Order", b =>
                 {
@@ -70,6 +85,48 @@ namespace Wriststone.Data.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.Permission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.PermissionMapping", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AccessLevelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PermissionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserRoleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccessLevelId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("PermissionMappings");
                 });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Product", b =>
@@ -149,12 +206,29 @@ namespace Wriststone.Data.Migrations.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserGroup")
-                        .HasColumnType("int");
+                    b.Property<long>("UserRoleId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("UserRoleId");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.UserRole", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Order", b =>
@@ -181,6 +255,33 @@ namespace Wriststone.Data.Migrations.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.PermissionMapping", b =>
+                {
+                    b.HasOne("Wriststone.Data.Entities.Entities.AccessLevel", "AccessLevel")
+                        .WithMany("PermissionMapping")
+                        .HasForeignKey("AccessLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wriststone.Data.Entities.Entities.Permission", "Permission")
+                        .WithMany("PermissionMapping")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wriststone.Data.Entities.Entities.UserRole", "UserRole")
+                        .WithMany("PermissionMapping")
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AccessLevel");
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("UserRole");
+                });
+
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Rating", b =>
                 {
                     b.HasOne("Wriststone.Data.Entities.Entities.Product", null)
@@ -194,9 +295,30 @@ namespace Wriststone.Data.Migrations.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.User", b =>
+                {
+                    b.HasOne("Wriststone.Data.Entities.Entities.UserRole", "UserRole")
+                        .WithMany("User")
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.AccessLevel", b =>
+                {
+                    b.Navigation("PermissionMapping");
+                });
+
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.Permission", b =>
+                {
+                    b.Navigation("PermissionMapping");
                 });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.Product", b =>
@@ -211,6 +333,13 @@ namespace Wriststone.Data.Migrations.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("Wriststone.Data.Entities.Entities.UserRole", b =>
+                {
+                    b.Navigation("PermissionMapping");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

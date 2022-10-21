@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wriststone.Common.Domain.Enums;
 using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Wriststone.Data.Models.Users
@@ -19,6 +20,6 @@ namespace Wriststone.Wriststone.Data.Models.Users
 
         public DateTime Created { get; set; }
 
-        public UserGroup UserGroup { get; set; }
+        public string UserRole { get; set; }
     }
 }
