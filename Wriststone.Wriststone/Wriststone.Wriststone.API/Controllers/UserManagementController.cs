@@ -9,9 +9,13 @@ using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
-    [RequirePageAccess(PermissionEnum.UserManagement)]
+    [RequirePageAccess(PermissionEnum.UsersManagement)]
     public class UserManagementController : BaseController
     {
-        
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            return Ok();
+        }
     }
 }

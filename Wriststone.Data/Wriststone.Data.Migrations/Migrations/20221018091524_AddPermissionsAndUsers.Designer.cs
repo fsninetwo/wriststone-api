@@ -213,7 +213,7 @@ namespace Wriststone.Data.Migrations.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Wriststone.Data.Entities.Entities.UserRole", b =>

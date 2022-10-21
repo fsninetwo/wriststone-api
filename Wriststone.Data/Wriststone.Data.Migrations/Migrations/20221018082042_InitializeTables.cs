@@ -95,7 +95,7 @@ namespace Wriststone.Data.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -136,7 +136,7 @@ namespace Wriststone.Data.Migrations.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,7 +166,7 @@ namespace Wriststone.Data.Migrations.Migrations
                     table.ForeignKey(
                         name: "FK_Ratings_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -239,7 +239,7 @@ namespace Wriststone.Data.Migrations.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UserRoleId",
-                table: "Users",
+                table: "User",
                 column: "UserRoleId");
         }
 
@@ -267,7 +267,7 @@ namespace Wriststone.Data.Migrations.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");

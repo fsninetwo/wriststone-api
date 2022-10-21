@@ -10,8 +10,8 @@ using Wriststone.Data.Migrations;
 namespace Wriststone.Data.Migrations.Migrations
 {
     [DbContext(typeof(EfCoreDbContext))]
-    [Migration("20221018082042_InitializeTables")]
-    partial class InitializeTables
+    [Migration("20221021054811_AddUserPermission")]
+    partial class AddUserPermission
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
