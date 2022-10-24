@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -57,25 +58,27 @@ namespace Wriststone.Wriststone.Services.Services
 
         public async Task UpdateUserAsync(UserUpdateDTO updatedUser)
         {
-            try
+            var user = await _userRepository.GetUserAsync(updatedUser.Id);
+
+            if (user is null)
             {
-                var user = await _userRepository.GetUserAsync(updatedUser.Id);
-
-                if (user is null)
-                {
-                    throw new InternalException("User is not found");
-                }
-
-                var mergedUser = UserHelper.MergeUpdatedData(updatedUser, user);
-
-                await _userRepository.UpdateUser(mergedUser);
-
-                _logger.LogDebug("Current user is updated");
+                throw new InternalException("User is not found");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error," + ex.Message);
-            }
+
+            var mergedUser = UserHelper.MergeUpdatedData(updatedUser, user);
+            
+            await _userRepository.UpdateUser(mergedUser);
+
+            _logger.LogDebug("Current user is updated");
+        }
+
+        public async Task<IList<UserDTO>> GetAllUsers()
+        {
+            var user = await _userRepository.GetAllUsers();
+
+            var userModel = _mapper.Map<IList<UserDTO>>(user);
+
+            return userModel;
         }
     }
 }

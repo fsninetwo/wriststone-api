@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Data.Models.Users;
@@ -14,5 +15,7 @@ namespace Wriststone.Wriststone.Services.IServices
         Task<UserDTO> GetUserAsync(long id);
 
         Task AddUser(UserCreateDTO userCreateDto);
+
+        Task<IList<UserDTO>> GetAllUsers();
     }
 }
