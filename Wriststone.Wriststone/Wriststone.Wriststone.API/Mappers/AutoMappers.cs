@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Wriststone.Common.Domain.Enums;
@@ -26,8 +27,10 @@ namespace Wriststone.Wriststone.API.Mappers
                 .ForMember(x => x.UserRole, opt => opt.Ignore())
                 .ForMember(d => d.UserRoleId, 
                 op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToLong(s.UserRole)));
+
             CreateMap<User, UserDTO>().ForMember(d => d.UserRole, 
                 op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
+
             CreateMap<User, UserCredentialsDTO>();
 
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 

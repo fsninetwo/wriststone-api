@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wriststone.Common.Domain.Exceptions;
@@ -41,6 +42,13 @@ namespace Wriststone.Wriststone.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IList<User>> GetAllUsers(bool asNoTracking = true)
+        {
+            var users = await GetUsers(asNoTracking).ToListAsync();
+
+            return users;
+        }
+
         public async Task<User> GetUserAsync(long userId, bool asNoTracking = true)
         {
             var user = await GetUser(userId,true).FirstOrDefaultAsync();
@@ -74,6 +82,15 @@ namespace Wriststone.Wriststone.Data.Repositories
         {
             var user = _userDbSet
                 .Where(x => x.Login == login && x.Password == password)
+                .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);  
+
+            return user;
+        }
+
+        private IQueryable<User> GetUsers(bool asNoTracking = false)
+        {
+            var user = _userDbSet
+                .Include(x => x.UserRole)
                 .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);  
 
             return user;
