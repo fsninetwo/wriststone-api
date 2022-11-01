@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
@@ -13,6 +14,12 @@
     <ProjectReference Include="..\..\Wriststone.Common\Wriststone.Common.Domain\Wriststone.Common.Domain.csproj" />
     <ProjectReference Include="..\..\Wriststone.Data\Wriststone.Data.Entities\Wriststone.Data.Entities.csproj" />
     <ProjectReference Include="..\Wriststone.Wriststone.Data\Wriststone.Wriststone.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MediatR">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\mediatr\11.0.0\lib\netstandard2.1\MediatR.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -16,6 +16,6 @@ namespace Wriststone.Wriststone.Services.IServices
 
         Task AddUser(UserCreateDTO userCreateDto);
 
-        Task<IList<UserDTO>> GetAllUsers();
+        Task<IList<UserDTO>> GetAllUsersAsync();
     }
 }
