@@ -71,14 +71,5 @@ namespace Wriststone.Wriststone.Services.Services
 
             _logger.LogDebug("Current user is updated");
         }
-
-        public async Task<IList<UserDTO>> GetAllUsersAsync()
-        {
-            var user = await _userRepository.GetAllUsers();
-
-            var userModel = _mapper.Map<IList<UserDTO>>(user);
-
-            return userModel;
-        }
     }
 }

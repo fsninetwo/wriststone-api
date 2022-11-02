@@ -10,20 +10,20 @@ using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.API.Handlers.UserManagement
 {
-    public class GetUsersRequest : IRequest<IList<UserDTO>> { }
+    public class GetUsersRequest : IRequest<IList<UserManagementDTO>> { }
 
-    public class GetUsersHandler : IRequestHandler<GetUsersRequest, IList<UserDTO>>
+    public class GetUsersHandler : IRequestHandler<GetUsersRequest, IList<UserManagementDTO>>
     {
-        private readonly IUserService _userService;
+        private readonly IUserManagementService _userManagementService;
 
-        public GetUsersHandler(IUserService userService)
+        public GetUsersHandler(IUserManagementService userManagementService)
         {
-            _userService = userService;
+            _userManagementService = userManagementService;
         }
 
-        public async Task<IList<UserDTO>> Handle(GetUsersRequest request, CancellationToken cancellationToken)
+        public async Task<IList<UserManagementDTO>> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAllUsersAsync();
+            var users = await _userManagementService.GetAllUsersAsync();
 
             return users;
         }

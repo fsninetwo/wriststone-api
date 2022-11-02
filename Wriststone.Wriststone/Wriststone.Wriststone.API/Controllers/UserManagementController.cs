@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Wriststone.Common.Domain.Enums;
 using Wriststone.Wriststone.API.Attributes;
 using Wriststone.Wriststone.API.Handlers.UserManagement;
+using Wriststone.Wriststone.Data.Models;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
@@ -28,6 +29,14 @@ namespace Wriststone.Wriststone.API.Controllers
             var users = await _mediatr.Send(new GetUsersRequest());
 
             return Ok(users);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUserAsync([FromBody] UserManagementDTO userManagementDto)
+        {
+            await _mediatr.Send(new UpdateUserRequest(userManagementDto));
+
+            return Ok();
         }
     }
 }
