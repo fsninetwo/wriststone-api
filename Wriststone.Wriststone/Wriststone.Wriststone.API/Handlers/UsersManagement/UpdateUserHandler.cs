@@ -7,16 +7,16 @@ using MediatR;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.IServices;
 
-namespace Wriststone.Wriststone.API.Handlers.UserManagement
+namespace Wriststone.Wriststone.API.Handlers.UsersManagement
 {
     public class UpdateUserRequest : IRequest
     {
-        public UpdateUserRequest(UserManagementDTO userManagementDTO)
+        public UpdateUserRequest(UsersManagementDTO usersManagementDto)
         {
-            UserManagementDTO = userManagementDTO;
+            UsersManagementDto = usersManagementDto;
         }
 
-        public UserManagementDTO UserManagementDTO { get; }
+        public UsersManagementDTO UsersManagementDto { get; }
     }
 
     public class UpdateUserHandler : IRequestHandler<UpdateUserRequest>
@@ -30,7 +30,7 @@ namespace Wriststone.Wriststone.API.Handlers.UserManagement
 
         public async Task<Unit> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
         {
-           await _userManagementService.UpdateUserAsync(request.UserManagementDTO);
+           await _userManagementService.UpdateUserAsync(request.UsersManagementDto);
 
            return Unit.Value;
         }

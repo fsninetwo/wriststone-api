@@ -4,7 +4,7 @@ using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Wriststone.Data.Models
 {
-    public class UserManagementDTO
+    public class UsersManagementDTO
     {
         public long Id { get; set; }
 

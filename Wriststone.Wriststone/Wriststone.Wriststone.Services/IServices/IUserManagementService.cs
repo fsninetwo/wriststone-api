@@ -9,8 +9,8 @@ namespace Wriststone.Wriststone.Services.IServices
 {
     public interface IUserManagementService
     {
-        Task<IList<UserManagementDTO>> GetAllUsersAsync();
+        Task<IList<UsersManagementDTO>> GetAllUsersAsync();
 
-        Task UpdateUserAsync(UserManagementDTO updateUser);
+        Task UpdateUserAsync(UsersManagementDTO updateUsers);
     }
 }

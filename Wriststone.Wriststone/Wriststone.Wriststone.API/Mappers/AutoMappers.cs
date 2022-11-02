@@ -14,15 +14,6 @@ namespace Wriststone.Wriststone.API.Mappers
     {
         public AutoMappers()
         {
-            CreateMap<Order, OrderDTO>().ForPath(dest => dest.OrderDetails, 
-                opt => opt.MapFrom(
-                    src => src.OrderDetails
-                        .Select(x => new OrderDetailsDTO {Id = x.Id})
-                    ));
-
-            CreateMap<OrderDetails, OrderDetailsDTO>();
-            CreateMap<Rating, RatingDTO>();
-
             CreateMap<UserCreateDTO, User>()
                 .ForMember(x => x.UserRole, opt => opt.Ignore())
                 .ForMember(d => d.UserRoleId, 
@@ -31,7 +22,7 @@ namespace Wriststone.Wriststone.API.Mappers
             CreateMap<User, UserDTO>().ForMember(d => d.UserRole, 
                 op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
 
-            CreateMap<User, UserManagementDTO>().ForMember(d => d.UserRole, 
+            CreateMap<User, UsersManagementDTO>().ForMember(d => d.UserRole, 
                 op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
 
             CreateMap<User, UserCredentialsDTO>();
@@ -48,6 +39,15 @@ namespace Wriststone.Wriststone.API.Mappers
                             Updated = x.Updated
                         })
                     ));
+
+            CreateMap<Order, OrderDTO>().ForPath(dest => dest.OrderDetails, 
+                opt => opt.MapFrom(
+                    src => src.OrderDetails
+                        .Select(x => new OrderDetailsDTO {Id = x.Id})
+                ));
+
+            CreateMap<OrderDetails, OrderDetailsDTO>();
+            CreateMap<Rating, RatingDTO>();
         }
     }
 }

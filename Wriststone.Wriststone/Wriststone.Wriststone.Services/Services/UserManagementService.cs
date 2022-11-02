@@ -26,29 +26,29 @@ namespace Wriststone.Wriststone.Services.Services
             _logger = logger;
         }
 
-        public async Task<IList<UserManagementDTO>> GetAllUsersAsync()
+        public async Task<IList<UsersManagementDTO>> GetAllUsersAsync()
         {
             var user = await _userRepository.GetAllUsers();
 
-            var userModel = _mapper.Map<IList<UserManagementDTO>>(user);
+            var userModel = _mapper.Map<IList<UsersManagementDTO>>(user);
 
             return userModel;
         }
 
-        public async Task UpdateUserAsync(UserManagementDTO updatedUser)
+        public async Task UpdateUserAsync(UsersManagementDTO updatedUsers)
         {
-            var user = await _userRepository.GetUserAsync(updatedUser.Id);
+            var user = await _userRepository.GetUserAsync(updatedUsers.Id);
 
             if (user is null)
             {
                 throw new InternalException("User is not found");
             }
 
-            var mergedUser = UserHelper.MergeUpdatedData(updatedUser, user);
+            var mergedUser = UserHelper.MergeUpdatedData(updatedUsers, user);
             
             await _userRepository.UpdateUser(mergedUser);
 
-            _logger.LogDebug($"User {updatedUser.Id} is updated");
+            _logger.LogDebug($"User {updatedUsers.Id} is updated");
         }
     }
 }

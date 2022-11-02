@@ -8,11 +8,11 @@ using MediatR;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.IServices;
 
-namespace Wriststone.Wriststone.API.Handlers.UserManagement
+namespace Wriststone.Wriststone.API.Handlers.UsersManagement
 {
-    public class GetUsersRequest : IRequest<IList<UserManagementDTO>> { }
+    public class GetUsersRequest : IRequest<IList<UsersManagementDTO>> { }
 
-    public class GetUsersHandler : IRequestHandler<GetUsersRequest, IList<UserManagementDTO>>
+    public class GetUsersHandler : IRequestHandler<GetUsersRequest, IList<UsersManagementDTO>>
     {
         private readonly IUserManagementService _userManagementService;
 
@@ -21,7 +21,7 @@ namespace Wriststone.Wriststone.API.Handlers.UserManagement
             _userManagementService = userManagementService;
         }
 
-        public async Task<IList<UserManagementDTO>> Handle(GetUsersRequest request, CancellationToken cancellationToken)
+        public async Task<IList<UsersManagementDTO>> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
             var users = await _userManagementService.GetAllUsersAsync();
 

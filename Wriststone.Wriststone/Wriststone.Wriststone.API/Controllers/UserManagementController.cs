@@ -7,17 +7,17 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Wriststone.Common.Domain.Enums;
 using Wriststone.Wriststone.API.Attributes;
-using Wriststone.Wriststone.API.Handlers.UserManagement;
+using Wriststone.Wriststone.API.Handlers.UsersManagement;
 using Wriststone.Wriststone.Data.Models;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
     [RequirePageAccess(PermissionEnum.UsersManagement)]
-    public class UserManagementController : BaseController
+    public class UsersManagementController : BaseController
     {
         private readonly IMediator _mediatr;
 
-        public UserManagementController(IMediator mediatr, 
+        public UsersManagementController(IMediator mediatr, 
             IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
         {
             _mediatr = mediatr;
@@ -32,9 +32,9 @@ namespace Wriststone.Wriststone.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateUserAsync([FromBody] UserManagementDTO userManagementDto)
+        public async Task<ActionResult> UpdateUserAsync([FromBody] UsersManagementDTO usersManagementDto)
         {
-            await _mediatr.Send(new UpdateUserRequest(userManagementDto));
+            await _mediatr.Send(new UpdateUserRequest(usersManagementDto));
 
             return Ok();
         }
