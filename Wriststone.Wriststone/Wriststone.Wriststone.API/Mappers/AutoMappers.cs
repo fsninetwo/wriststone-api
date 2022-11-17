@@ -25,6 +25,9 @@ namespace Wriststone.Wriststone.API.Mappers
             CreateMap<User, UsersManagementDTO>().ForMember(d => d.UserRole, 
                 op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
 
+            CreateMap<User, UsersManagementEditDTO>().ForMember(d => d.UserRole, 
+                op => op.MapFrom(s => EnumHelper<UserRoleEnum>.ConvertToString(s.UserRoleId)));
+
             CreateMap<User, UserCredentialsDTO>();
 
             CreateMap<Product, ProductDTO>().ForPath(dest => dest.Ratings, 

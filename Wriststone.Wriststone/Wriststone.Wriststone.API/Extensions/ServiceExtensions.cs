@@ -33,6 +33,7 @@ namespace Wriststone.Wriststone.API.Extensions
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IPermissionsRepository, PermissionsRepository>();

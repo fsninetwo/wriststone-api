@@ -42,7 +42,12 @@ namespace Wriststone.Wriststone.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IList<User>> GetAllUsers(bool asNoTracking = true)
+        public Task<IList<string>> GetAllUserRolesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IList<User>> GetAllUsersAsync(bool asNoTracking = true)
         {
             var users = await GetUsers(asNoTracking).ToListAsync();
 

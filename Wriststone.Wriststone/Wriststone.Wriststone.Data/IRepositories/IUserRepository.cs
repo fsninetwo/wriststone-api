@@ -14,7 +14,7 @@ namespace Wriststone.Wriststone.Data.IRepositories
 
         Task<User> GetUserByCredentialsAsync(string login, string password, bool asNoTracking = true);
 
-        Task<IList<User>> GetAllUsers(bool asNoTracking = true);
+        Task<IList<User>> GetAllUsersAsync(bool asNoTracking = true);
 
         Task DeleteUser(long userId);
     }

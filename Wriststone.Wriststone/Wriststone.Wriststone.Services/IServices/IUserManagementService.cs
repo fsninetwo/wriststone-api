@@ -11,6 +11,12 @@ namespace Wriststone.Wriststone.Services.IServices
     {
         Task<IList<UsersManagementDTO>> GetAllUsersAsync();
 
-        Task UpdateUserAsync(UsersManagementDTO updateUsers);
+        Task<IList<string>> GetAllUserRolesAsync();
+
+        Task UpdateUserAsync(UsersManagementEditDTO updateUsers);
+
+        Task DeleteUserAsync(long userId);
+
+        Task<UsersManagementEditDTO> GetUserAsync(long userId);
     }
 }

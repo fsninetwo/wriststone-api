@@ -17,11 +17,12 @@ namespace Wriststone.Wriststone.Services.Helpers
             return user;
         }
 
-        public static User MergeUpdatedData(UsersManagementDTO updatedUsers, User user)
+        public static User MergeUpdatedData(UsersManagementEditDTO updatedUser, User user)
         {
-            user.Login = updatedUsers.Login;
-            user.Email = updatedUsers.Email;
-            user.UserRoleId = EnumHelper<UserRoleEnum>.ConvertToLong(updatedUsers.UserRole);
+            user.Login = updatedUser.Login;
+            user.Email = updatedUser.Email;
+            user.FullName = updatedUser.FullName;
+            user.UserRoleId = EnumHelper<UserRoleEnum>.ConvertToLong(updatedUser.UserRole);
 
             return user;
         }

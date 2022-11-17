@@ -11,12 +11,12 @@ namespace Wriststone.Wriststone.API.Handlers.UsersManagement
 {
     public class UpdateUserRequest : IRequest
     {
-        public UpdateUserRequest(UsersManagementDTO usersManagementDto)
+        public UpdateUserRequest(UsersManagementEditDTO usersManagementDto)
         {
             UsersManagementDto = usersManagementDto;
         }
 
-        public UsersManagementDTO UsersManagementDto { get; }
+        public UsersManagementEditDTO UsersManagementDto { get; }
     }
 
     public class UpdateUserHandler : IRequestHandler<UpdateUserRequest>

@@ -26,13 +26,30 @@ namespace Wriststone.Wriststone.API.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsersAsync()
         {
-            var users = await _mediatr.Send(new GetUsersRequest());
+            var users = await _mediatr.Send(new GetAllUsersRequest());
 
             return Ok(users);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAllUserRolesAsync()
+        {
+            var userRoles = await _mediatr.Send(new GetAllUserRolesRequest());
+
+            return Ok(userRoles);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetUserAsync(long id)
+        {
+            var user = await _mediatr.Send(new GetUserRequest(id));
+
+            return Ok(user);
+        }
+
         [HttpPut]
-        public async Task<ActionResult> UpdateUserAsync([FromBody] UsersManagementDTO usersManagementDto)
+        public async Task<ActionResult> UpdateUserAsync([FromBody] UsersManagementEditDTO usersManagementDto)
         {
             await _mediatr.Send(new UpdateUserRequest(usersManagementDto));
 
