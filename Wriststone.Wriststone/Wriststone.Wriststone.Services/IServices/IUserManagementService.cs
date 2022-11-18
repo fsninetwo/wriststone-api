@@ -15,8 +15,9 @@ namespace Wriststone.Wriststone.Services.IServices
 
         Task UpdateUserAsync(UsersManagementEditDTO updateUsers);
 
-        Task DeleteUserAsync(long userId);
+        Task RemoveUserAsync(long userId);
 
         Task<UsersManagementEditDTO> GetUserAsync(long userId);
+        
     }
 }

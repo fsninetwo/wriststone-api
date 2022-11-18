@@ -36,7 +36,7 @@ namespace Wriststone.Wriststone.Services.Services
             return userModel;
         }
 
-        public async Task AddUser(UserCreateDTO userCreateDto)
+        public async Task AddUserAsync(UserCreateDTO userCreateDto)
         {
             var user = _mapper.Map<User>(userCreateDto);
 

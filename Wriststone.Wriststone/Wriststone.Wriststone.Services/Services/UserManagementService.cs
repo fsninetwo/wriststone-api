@@ -61,7 +61,7 @@ namespace Wriststone.Wriststone.Services.Services
             _logger.LogDebug($"User {updatedUser.Id} is updated");
         }
 
-        public async Task DeleteUserAsync(long userId)
+        public async Task RemoveUserAsync(long userId)
         {
             await _userRepository.DeleteUser(userId);
 
