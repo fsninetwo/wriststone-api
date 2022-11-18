@@ -70,6 +70,7 @@ namespace Wriststone.Wriststone.Services.Services
             await _userRepository.UpdateUser(mergedUser);
 
             _logger.LogDebug("Current user is updated");
+            
         }
     }
 }
