@@ -30,7 +30,7 @@ namespace Wriststone.Wriststone.API.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> EditUser([FromBody] UserUpdateDTO userUpdateDTO)
         {
             await _userService.UpdateUserAsync(userUpdateDTO);

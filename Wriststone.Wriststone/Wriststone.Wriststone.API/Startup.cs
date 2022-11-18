@@ -26,6 +26,7 @@ namespace Wriststone.Wriststone.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+            services.AddMediatrService();
             services.AddControllers();
             services.AddLogging();
             services.AddSwaggerService();

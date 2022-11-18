@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +33,7 @@ namespace Wriststone.Wriststone.API.Extensions
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IPermissionsRepository, PermissionsRepository>();
@@ -41,6 +44,7 @@ namespace Wriststone.Wriststone.API.Extensions
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPermissionsService, PermissionsService>();
+            services.AddScoped<IUserManagementService, UserManagementService>();
 
             services.AddScoped<ITokenService, TokenService>();
 
@@ -134,6 +138,11 @@ namespace Wriststone.Wriststone.API.Extensions
             });
         }
 
+        public static void AddMediatrService(this IServiceCollection services)
+        {
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+        }
+
         public static void UseSwaggerService(this IApplicationBuilder app)
         {
             app.UseSwagger();
@@ -143,6 +152,7 @@ namespace Wriststone.Wriststone.API.Extensions
                 c.RoutePrefix = string.Empty;
             });
         }
+
 
         public static void UseExceptionHandler(this IApplicationBuilder app, IWebHostEnvironment env)
         {

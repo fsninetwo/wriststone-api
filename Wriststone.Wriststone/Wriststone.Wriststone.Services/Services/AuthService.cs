@@ -52,7 +52,7 @@ namespace Wriststone.Wriststone.Services.Services
 
         public async Task Register(UserCreateDTO userCreateDto)
         {
-            await _userService.AddUser(userCreateDto);
+            await _userService.AddUserAsync(userCreateDto);
         }
     }
 }

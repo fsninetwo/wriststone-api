@@ -36,7 +36,7 @@ namespace Wriststone.Wriststone.Services.Services
             return userModel;
         }
 
-        public async Task AddUser(UserCreateDTO userCreateDto)
+        public async Task AddUserAsync(UserCreateDTO userCreateDto)
         {
             var user = _mapper.Map<User>(userCreateDto);
 
@@ -70,15 +70,7 @@ namespace Wriststone.Wriststone.Services.Services
             await _userRepository.UpdateUser(mergedUser);
 
             _logger.LogDebug("Current user is updated");
-        }
-
-        public async Task<IList<UserDTO>> GetAllUsers()
-        {
-            var user = await _userRepository.GetAllUsers();
-
-            var userModel = _mapper.Map<IList<UserDTO>>(user);
-
-            return userModel;
+            
         }
     }
 }
