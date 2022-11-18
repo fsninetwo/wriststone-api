@@ -73,5 +73,14 @@ namespace Wriststone.Wriststone.Services.Services
             
             return productModelList;
         }
+
+        public async Task<List<ProductDTO>> GetAllProductsAsync()
+        {
+            var products = await _productRepository.GetAllProductsAsync();
+
+            var productModelList = _mapper.Map<List<ProductDTO>>(products);
+            
+            return productModelList;
+        }
     }
 }

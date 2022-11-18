@@ -11,5 +11,7 @@ namespace Wriststone.Wriststone.Services.IServices
         Task<List<ProductDTO>> GetProductsAsync(string searchText);
 
         Task<List<ProductDTO>> GetProductsAsync(List<long> orderDetailsIds);
+
+        Task<List<ProductDTO>> GetAllProductsAsync();
     }
 }

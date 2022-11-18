@@ -16,6 +16,9 @@ namespace Wriststone.Wriststone.Data.IRepositories
 
         Task<List<Product>> GetProductsAsync(List<long> orderDetailIds, bool asNoTracking = true);
 
+        Task<List<Product>> GetAllProductsAsync(bool asNoTracking = true);
+
         Task DeleteProduct(long productId);
+        
     }
 }

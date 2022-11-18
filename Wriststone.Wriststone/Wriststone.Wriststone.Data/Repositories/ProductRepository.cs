@@ -57,9 +57,9 @@ namespace Wriststone.Wriststone.Data.Repositories
 
         public async Task<List<Product>> GetProductsAsync(string searchText, bool asNoTracking = true)
         {
-            var product = await GetProducts(searchText, asNoTracking).ToListAsync();
+            var products = await GetProducts(searchText, asNoTracking).ToListAsync();
 
-            return product;
+            return products;
         }
 
         public async Task UpdateProduct(Product updatedProduct)
@@ -74,6 +74,21 @@ namespace Wriststone.Wriststone.Data.Repositories
             _productDbSet.Update(updatedProduct);
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Task<List<Product>> GetAllProductsAsync(bool asNoTracking = true)
+        {
+            var products = GetProducts(asNoTracking).ToListAsync();
+
+            return products;
+        }
+
+        private IQueryable<Product> GetProducts(bool asNoTracking = false)
+        {
+            var product = _productDbSet
+                .AsTracking(asNoTracking ? QueryTrackingBehavior.NoTracking : QueryTrackingBehavior.TrackAll);   
+
+            return product;
         }
 
         private IQueryable<Product> GetProduct(long productId, bool asNoTracking = false)
