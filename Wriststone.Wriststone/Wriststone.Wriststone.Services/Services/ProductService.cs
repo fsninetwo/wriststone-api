@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Products;
 using Wriststone.Wriststone.Services.IServices;
 
 namespace Wriststone.Wriststone.Services.Services
@@ -34,19 +35,17 @@ namespace Wriststone.Wriststone.Services.Services
             return productModel;
         }
 
-        public async Task<List<ProductDTO>> GetProductsAsync(List<long> orderdetailsIds)
+        public async Task<IList<ProductListDTO>> GetProductsAsync(List<long> orderdetailsIds)
         {
             var products = await _productRepository.GetProductsAsync(orderdetailsIds);
 
             var user = await _userService.GetUserAsync(1);
 
-            var productModelList = new List<ProductDTO>();
+            var productModelList = new List<ProductListDTO>();
 
             foreach (var product in products)
             {
-                var productModel = _mapper.Map<ProductDTO>(product);
-
-                productModel.Ratings.ForEach(f => f.UserName = user.Login);
+                var productModel = _mapper.Map<ProductListDTO>(product);
 
                 productModelList.Add(productModel);
             }
@@ -54,19 +53,17 @@ namespace Wriststone.Wriststone.Services.Services
             return productModelList;
         }
 
-        public async Task<List<ProductDTO>> GetProductsAsync(string searchText)
+        public async Task<IList<ProductListDTO>> GetProductsAsync(string searchText)
         {
             var products = await _productRepository.GetProductsAsync(searchText);
 
             var user = await _userService.GetUserAsync(1);
 
-            var productModelList = new List<ProductDTO>();
+            var productModelList = new List<ProductListDTO>();
 
             foreach (var product in products)
             {
-                var productModel = _mapper.Map<ProductDTO>(product);
-
-                productModel.Ratings.ForEach(f => f.UserName = user.Login);
+                var productModel = _mapper.Map<ProductListDTO>(product);
 
                 productModelList.Add(productModel);
             }
@@ -74,11 +71,11 @@ namespace Wriststone.Wriststone.Services.Services
             return productModelList;
         }
 
-        public async Task<List<ProductDTO>> GetAllProductsAsync()
+        public async Task<IList<ProductListDTO>> GetAllProductsAsync()
         {
             var products = await _productRepository.GetAllProductsAsync();
 
-            var productModelList = _mapper.Map<List<ProductDTO>>(products);
+            var productModelList = _mapper.Map<IList<ProductListDTO>>(products);
             
             return productModelList;
         }

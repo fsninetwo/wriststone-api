@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Products;
 
 namespace Wriststone.Wriststone.Services.IServices
 {
@@ -8,10 +9,10 @@ namespace Wriststone.Wriststone.Services.IServices
     {
         Task<ProductDTO> GetProductAsync(long id);
 
-        Task<List<ProductDTO>> GetProductsAsync(string searchText);
+        Task<IList<ProductListDTO>> GetProductsAsync(string searchText);
 
-        Task<List<ProductDTO>> GetProductsAsync(List<long> orderDetailsIds);
+        Task<IList<ProductListDTO>> GetProductsAsync(List<long> orderDetailsIds);
 
-        Task<List<ProductDTO>> GetAllProductsAsync();
+        Task<IList<ProductListDTO>> GetAllProductsAsync();
     }
 }

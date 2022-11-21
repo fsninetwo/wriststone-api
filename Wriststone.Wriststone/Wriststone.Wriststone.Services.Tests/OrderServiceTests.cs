@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using EfCore.Domain.Helpers;
 using Moq;
 using Wriststone.Common.Domain.Exceptions;
+using Wriststone.Common.Domain.Helpers;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
+using Wriststone.Wriststone.Data.Models.Products;
 using Wriststone.Wriststone.Services.IServices;
 using Wriststone.Wriststone.Services.Services;
 using Xunit;
@@ -24,7 +25,7 @@ namespace Wriststone.Wriststone.Services.Tests
 
         public OrderServiceTests()
         {
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new AutoMappers()); });
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new API.Mappers.AutoMappers()); });
             _mapper = mappingConfig.CreateMapper();
 
             _mockUserService = new Mock<IUserService>();
@@ -89,32 +90,28 @@ namespace Wriststone.Wriststone.Services.Tests
             }
         };
 
-        private readonly List<ProductDTO> _validProducts = new List<ProductDTO>()
+        private readonly List<ProductListDTO> _validProducts = new List<ProductListDTO>()
         {
-            new ProductDTO()
+            new ProductListDTO()
             {
                 Id = 1,
                 Name = "Test 1",
-                Ratings = new List<RatingDTO> { new RatingDTO() { Id = 1, UserName = "Test" }}
 
             },
-            new ProductDTO()
+            new ProductListDTO()
             {
                 Id = 2,
                 Name = "Test 2",
-                Ratings = new List<RatingDTO> { new RatingDTO() { Id = 2, UserName = "Test" }}
             },
-            new ProductDTO()
+            new ProductListDTO()
             {
                 Id = 3,
                 Name = "Test 3",
-                Ratings = new List<RatingDTO>()
             },
-            new ProductDTO()
+            new ProductListDTO()
             {
                 Id = 4,
                 Name = "Test 4",
-                Ratings = new List<RatingDTO>()
             }
         };
 

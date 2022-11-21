@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wriststone.Wriststone.Data.Models
+namespace Wriststone.Wriststone.Data.Models.Products
 {
     public class ProductDTO
     {

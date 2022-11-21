@@ -107,6 +107,7 @@ namespace Wriststone.Wriststone.API.Extensions
             var autoMapper = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMappers()); 
+                mc.AddProfile(new UserMapper()); 
             });
 
             var mapper = autoMapper.CreateMapper();
