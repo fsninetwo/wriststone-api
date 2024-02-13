@@ -13,7 +13,7 @@ using Wriststone.Wriststone.Data.Models.Users;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
-    [RequirePageAccess(PermissionEnum.UsersManagement)]
+    [RequirePageAccess(PermissionEnum.UserManagement)]
     public class UsersManagementController : BaseController
     {
         private readonly IMediator _mediatr;

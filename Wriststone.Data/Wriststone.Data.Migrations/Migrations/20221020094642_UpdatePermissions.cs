@@ -18,7 +18,7 @@ namespace Wriststone.Data.Migrations.Migrations
                 new PermissionMapping
                 {
                     UserRoleId = (long)UserRoleEnum.Administrator,
-                    PermissionId = (long)PermissionEnum.UsersManagement,
+                    PermissionId = (long)PermissionEnum.UserManagement,
                     AccessLevelId = (long)AccessLevelEnum.Read
                 }
             };

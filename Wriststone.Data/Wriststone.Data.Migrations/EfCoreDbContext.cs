@@ -25,7 +25,7 @@ namespace Wriststone.Data.Migrations
 
         public DbSet<Rating> Ratings { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
 
         public DbSet<PermissionMapping> PermissionMappings { get; set; }
 

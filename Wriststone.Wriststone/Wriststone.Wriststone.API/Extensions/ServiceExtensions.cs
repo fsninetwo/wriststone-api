@@ -121,9 +121,7 @@ namespace Wriststone.Wriststone.API.Extensions
                 {
                     opts.CommandTimeout(int.MaxValue);
                     opts.EnableRetryOnFailure(
-                        10,
-                        TimeSpan.FromSeconds(30),
-                        null);
+                        10, TimeSpan.FromSeconds(30), null);
                 }));
         }
 
