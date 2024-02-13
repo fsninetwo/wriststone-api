@@ -2,7 +2,7 @@
 {
     public enum PermissionEnum
     {
-        UsersManagement = 1,
+        UserManagement = 1,
         User
     }
 }

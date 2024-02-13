@@ -18,7 +18,7 @@ namespace Wriststone.Wriststone.Services.Services
 
         private readonly Dictionary<PermissionEnum, string> _permissionMap = new Dictionary<PermissionEnum, string>
         {
-            { PermissionEnum.UsersManagement, "Users Management" },
+            { PermissionEnum.UserManagement, "User Management" },
             { PermissionEnum.User, "User" }
         };
 
