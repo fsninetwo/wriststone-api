@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Wriststone.Common.Domain.Exceptions;
+using Wriststone.Common.Domain.Pagination;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.Helpers;
@@ -36,6 +37,15 @@ namespace Wriststone.Wriststone.Services.Services
             var userModel = _mapper.Map<IList<UsersManagementDTO>>(user);
 
             return userModel;
+        }
+
+        public async Task<PagedList<UsersManagementDTO>> GetPaginatedAllUsersAsync(PaginationParameters pagination)
+        {
+            var pagedUsers = await _userRepository.GetPagedAllUsersAsync(pagination);
+
+            var users = _mapper.Map<ICollection<UsersManagementDTO>>(pagedUsers.Items);
+
+            return new PagedList<UsersManagementDTO>(users, pagedUsers.TotalCount, pagination);
         }
 
         public async Task<IList<string>> GetAllUserRolesAsync()

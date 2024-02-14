@@ -10,6 +10,7 @@ using Wriststone.Wriststone.API.Attributes;
 using Wriststone.Wriststone.API.Handlers.UsersManagement;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Data.Models.Users;
+using Wriststone.Common.Domain.Pagination;
 
 namespace Wriststone.Wriststone.API.Controllers
 {
@@ -22,6 +23,16 @@ namespace Wriststone.Wriststone.API.Controllers
             IHttpContextAccessor httpContextAccessor): base(httpContextAccessor)
         {
             _mediatr = mediatr;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetPaginatedAllUsers(int index, int pageSize)
+        {
+            var pagination = new PaginationParameters(index, page);
+
+            var users = await _mediatr.Send(new GetPaginatedAllUsersRequest(pagination));
+
+            return Ok(users);
         }
 
         [HttpGet]
