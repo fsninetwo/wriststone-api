@@ -26,9 +26,9 @@ namespace Wriststone.Wriststone.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetPaginatedAllUsers(int index, int pageSize)
+        public async Task<ActionResult> GetPaginatedAllUsers(int pageIndex, int pageSize)
         {
-            var pagination = new PaginationParameters(index, page);
+            var pagination = new PaginationParameters(pageIndex, pageSize);
 
             var users = await _mediatr.Send(new GetPaginatedAllUsersRequest(pagination));
 
