@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wriststone.Common.Domain.Exceptions;
+using Wriststone.Common.Domain.Helpers;
+using Wriststone.Common.Domain.Pagination;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Data.Migrations;
 using Wriststone.Wriststone.Data.IRepositories;
@@ -52,6 +54,13 @@ namespace Wriststone.Wriststone.Data.Repositories
             var users = await GetUsers(asNoTracking).ToListAsync();
 
             return users;
+        }
+
+        public async Task<PagedList<User>> GetPagedAllUsersAsync(PaginationParameters pagination, bool asNoTracking = true)
+        {
+            var getAllUsersQuery = GetUsers(asNoTracking);
+
+            return await PaginationHelper.GetPagedData(getAllUsersQuery, pagination);
         }
 
         public async Task<User> GetUserAsync(long userId, bool asNoTracking = true)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Wriststone.Common.Domain.Pagination;
 using Wriststone.Data.Entities.Entities;
 
 namespace Wriststone.Wriststone.Data.IRepositories
@@ -15,6 +16,8 @@ namespace Wriststone.Wriststone.Data.IRepositories
         Task<User> GetUserByCredentialsAsync(string login, string password, bool asNoTracking = true);
 
         Task<IList<User>> GetAllUsersAsync(bool asNoTracking = true);
+
+        Task<PagedList<User>> GetPagedAllUsersAsync(PaginationParameters pagination, bool asNoTracking = true);
 
         Task DeleteUser(long userId);
     }
