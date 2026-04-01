@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Wriststone.Data.Migrations;
 using Wriststone.Wriststone.API.Extensions;
 using Wriststone.Data.Migrations.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Wriststone.Wriststone.API
 {

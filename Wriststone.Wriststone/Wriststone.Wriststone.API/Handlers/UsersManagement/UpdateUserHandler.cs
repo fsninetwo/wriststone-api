@@ -28,11 +28,9 @@ namespace Wriststone.Wriststone.API.Handlers.UsersManagement
             _userManagementService = userManagementService;
         }
 
-        public async Task<Unit> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateUserRequest request, CancellationToken cancellationToken)
         {
            await _userManagementService.UpdateUserAsync(request.UsersManagementDto);
-
-           return Unit.Value;
         }
     }
 }

@@ -63,9 +63,9 @@ namespace Wriststone.Wriststone.API.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser([FromBody] UserCreateDTO usersCreateDto)
         {
-            var users = await _mediatr.Send(new AddUserRequest(usersCreateDto));
+            await _mediatr.Send(new AddUserRequest(usersCreateDto));
 
-            return Ok(users);
+            return Ok();
         }
 
         [HttpPut]

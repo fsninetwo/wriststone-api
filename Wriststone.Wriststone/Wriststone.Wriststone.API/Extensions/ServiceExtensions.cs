@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,8 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
 using Wriststone.Wriststone.API.Helpers;
@@ -53,9 +55,9 @@ namespace Wriststone.Wriststone.API.Extensions
 
         public static void AddSwaggerService(this IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Wriststone.Wriststone.API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Wriststone.Wriststone.API", Version = "v1"});
 
                 var securityScheme = new OpenApiSecurityScheme
                 {
@@ -65,16 +67,11 @@ namespace Wriststone.Wriststone.API.Extensions
                     Type = SecuritySchemeType.Http,
                     Scheme = "bearer",
                     BearerFormat = "JWT",
-                    Reference = new OpenApiReference
-                    {
-                        Id = JwtBearerDefaults.AuthenticationScheme,
-                        Type = ReferenceType.SecurityScheme
-                    }
                 };
 
-                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {{ securityScheme, Array.Empty<string>() }}
+                options.AddSecurityDefinition(securityScheme.Scheme, securityScheme);
+                options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
+                    { [new OpenApiSecuritySchemeReference(securityScheme.Scheme, doc)] = [] }
                 );
             });
         }
@@ -107,7 +104,7 @@ namespace Wriststone.Wriststone.API.Extensions
             var autoMapper = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMappers()); 
-            });
+            }, null);
 
             var mapper = autoMapper.CreateMapper();
 
@@ -138,7 +135,10 @@ namespace Wriststone.Wriststone.API.Extensions
 
         public static void AddMediatrService(this IServiceCollection services)
         {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
         }
 
         public static void UseSwaggerService(this IApplicationBuilder app)
