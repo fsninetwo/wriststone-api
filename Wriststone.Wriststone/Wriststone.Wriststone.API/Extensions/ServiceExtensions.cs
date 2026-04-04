@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,12 +10,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Wriststone.Data.Migrations;
 using Wriststone.Data.Migrations.Configuration;
-using Wriststone.Wriststone.API.Helpers;
 using Wriststone.Wriststone.API.Mappers;
 using Wriststone.Wriststone.API.Middlewares;
 using Wriststone.Wriststone.Data.IRepositories;
@@ -74,6 +71,7 @@ namespace Wriststone.Wriststone.API.Extensions
                     { [new OpenApiSecuritySchemeReference(securityScheme.Scheme, doc)] = [] }
                 );
             });
+
         }
 
         public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
@@ -101,14 +99,17 @@ namespace Wriststone.Wriststone.API.Extensions
 
         public static void AddAutoMapperService(this IServiceCollection services)
         {
-            var autoMapper = new MapperConfiguration(mc =>
+            services.AddSingleton(sp =>
             {
-                mc.AddProfile(new AutoMappers()); 
-            }, null);
+                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
 
-            var mapper = autoMapper.CreateMapper();
+                var autoMapper = new MapperConfiguration(mc =>
+                {
+                    mc.AddProfile(new AutoMappers());
+                }, loggerFactory);
 
-            services.AddSingleton(mapper);
+                return autoMapper.CreateMapper();
+            });
         }
 
         public static void AddDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
