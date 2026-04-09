@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Wriststone.Data.Models;
 using Wriststone.Wriststone.Services.IServices;
 
@@ -36,6 +37,10 @@ namespace Wriststone.Wriststone.Services.Helpers
         private SigningCredentials GetSigningCredentials()
         {
             var secretKeyValue = _configuration.GetSection("SecretKey").Value;
+
+            if (secretKeyValue.Length < 32)
+                throw new InternalException("Secret key length is less that 32 symbols");
+
             var key = Encoding.UTF8.GetBytes(secretKeyValue);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
