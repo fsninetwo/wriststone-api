@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
