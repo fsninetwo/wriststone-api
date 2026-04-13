@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --verbosity normal
 
       - name: Publish API
         run: dotnet publish Wriststone.Wriststone/Wriststone.Wriststone.API/Wriststone.Wriststone.API.csproj --configuration Release --output ./publish --no-build
