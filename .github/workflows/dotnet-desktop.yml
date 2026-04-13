@@ -1,7 +1,5 @@
 name: Wriststone CI
 
-name: Wriststone CI
-
 on:
   push:
     branches: [ "master" ]
