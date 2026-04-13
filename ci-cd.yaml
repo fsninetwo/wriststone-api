@@ -1,0 +1,36 @@
+name: Wriststone CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+  
+  runs-on: ubuntu-22.04
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Upload published files
+      uses: actions/upload-artifacts@v4
+      with:
+        name: wriststone-app
+        path: ./publish
