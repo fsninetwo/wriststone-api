@@ -1,8 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using EfCore.Domain.Helpers;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Wriststone.Common.Domain.Exceptions;
 using Wriststone.Data.Entities.Entities;
 using Wriststone.Wriststone.API.Mappers;
@@ -24,7 +25,7 @@ namespace Wriststone.Wriststone.Services.Tests
 
         public OrderServiceTests()
         {
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new AutoMappers()); });
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new AutoMappers()); }, NullLoggerFactory.Instance);
             _mapper = mappingConfig.CreateMapper();
 
             _mockUserService = new Mock<IUserService>();

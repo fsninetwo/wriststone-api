@@ -11,6 +11,7 @@ using Wriststone.Data.Migrations;
 using Xunit;
 using Wriststone.Wriststone.Data.IRepositories;
 using Wriststone.Wriststone.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace Wriststone.Wriststone.Data.Tests
 {
@@ -77,7 +78,6 @@ namespace Wriststone.Wriststone.Data.Tests
             _mockDbContext = new Mock<EfCoreDbContext>();
 
             _mockOrderDbSet = _orders
-                .AsQueryable()
                 .BuildMockDbSet();
 
             _mockDbContext
@@ -118,7 +118,7 @@ namespace Wriststone.Wriststone.Data.Tests
         }
 
         [Fact]
-        public async void GetOrder_ShouldReturnValidData()
+        public async Task GetOrder_ShouldReturnValidData()
         {
             var orderId = 1;
 
@@ -128,7 +128,7 @@ namespace Wriststone.Wriststone.Data.Tests
         }
 
         [Fact]
-        public async void GetOrders_ShouldReturnValidData()
+        public async Task GetOrders_ShouldReturnValidData()
         {
             var userId = 2;
 
@@ -140,7 +140,7 @@ namespace Wriststone.Wriststone.Data.Tests
         }
 
         [Fact]
-        public async void GetOrder_ShouldAddOrder()
+        public async Task GetOrder_ShouldAddOrder()
         {
             var orderId = 5;
 
@@ -159,7 +159,7 @@ namespace Wriststone.Wriststone.Data.Tests
         }
 
         [Fact]
-        public async void GetOrders_ShouldUpdateOrder()
+        public async Task GetOrders_ShouldUpdateOrder()
         {
             var userId = 3;
 
@@ -183,7 +183,7 @@ namespace Wriststone.Wriststone.Data.Tests
         }
 
         [Fact]
-        public async void GetOrders_ShouldDeleteOrder()
+        public async Task GetOrders_ShouldDeleteOrder()
         {
             var orderId = 1;
 
