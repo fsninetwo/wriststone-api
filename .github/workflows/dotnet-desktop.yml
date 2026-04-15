@@ -35,16 +35,12 @@ jobs:
 
       - name: Refresh test results
         run: |
-          if (Test-Path ./coverage){
-            Remove-Item -Path ./coverage -Recurse -Force 
-          }
-          New-Item -Path ./coverage -ItemType Directory | Out-Null
-        shell: pwsh
+          rm -rf ./coverage
+          mkdir -p ./coverage
+        shell: bash
 
       - name: Run tests
-        run: dotnet test --no-build -c Release --verbosity normal \
-          --collect:"XPlat Code Coverage" \
-          --results-directory ./coverage
+        run: dotnet test --no-build -c Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
