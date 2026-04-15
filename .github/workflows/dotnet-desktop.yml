@@ -31,7 +31,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build wriststone-api.sln -c Release --no-restore
 
       - name: Refresh test results
         run: |
@@ -51,6 +51,7 @@ jobs:
         with:
           name: coverage-report
           path: ./coverage
+
       #- name: Publish API
       #  run: dotnet publish Wriststone.Wriststone/Wriststone.Wriststone.API/Wriststone.Wriststone.API.csproj -c Release --output ./publish --no-build
 
