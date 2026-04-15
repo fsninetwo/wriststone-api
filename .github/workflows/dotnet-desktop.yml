@@ -39,6 +39,7 @@ jobs:
             Remove-Item -Path ./coverage -Recurse -Force 
           }
           New-Item -Path ./coverage -ItemType Directory | Out-Null
+        shell: pwsh
 
       - name: Run tests
         run: dotnet test --no-build -c Release --verbosity normal \
